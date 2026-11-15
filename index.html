@@ -112,6 +112,12 @@
   body.osc #tab_draw, body.osc #tab_play, body.osc #tab_file, body.osc #rowDraw, body.osc #rowPlay, body.osc #rowFile{display:none!important}
   body.stock #sineBtn, body.stock #harmBtn, body.stock #cluBtn, body.stock #polyBtn, body.stock #mLive, body.stock #tLine, body.stock #tCurve{display:none!important}
   body:not(.stock) #editBtn{display:none}
+  /* Im Stockhausen-Modus sind die Klangknöpfe ausgeblendet – ein Hinweis zeigt warum und beendet den Modus */
+  #stkChip{display:none;border-color:#b48cff;color:#efe6ff;background:#b48cff2a}
+  #stkChip .led{background:#b48cff;box-shadow:0 0 8px #b48cff}
+  body.stock #stkChip{display:flex}
+  #specBadge{font-size:11px;font-weight:700;color:#efe6ff;background:#b48cff55;border-radius:6px;padding:2px 6px;margin-left:2px}
+  #specBadge:empty{display:none}
   body.oscpoly .side.r .fader.pitch .cap{color:#ff8fa3} body.oscpoly .side.r .fader.pitch .fill{background:#ff8fa3}
   body.oscpoly .side.r .fader.vol .cap{color:#ff8fa3} body.oscpoly .side.r .fader.vol .fill{background:#ff8fa3}
   #tune{position:absolute;left:8px;bottom:8px;display:none;flex-direction:column;gap:4px;background:#12151add;border:1px solid var(--line);border-radius:10px;padding:6px}
@@ -224,7 +230,7 @@
       <button class="tab" id="tab_snd"><span class="led"></span>Klänge</button>
       <button class="tab" id="tab_draw"><span class="led"></span>Zeichnen</button>
       <button class="tab" id="tab_play"><span class="led"></span>Spielen</button>
-      <button class="tab" id="tab_spec"><span class="led"></span>Special</button>
+      <button class="tab" id="tab_spec"><span class="led"></span>Special<span id="specBadge"></span></button>
       <button class="tab" id="tab_file"><span class="led"></span>Datei</button>
     </div>
     <div id="subs">
@@ -235,6 +241,7 @@
       <button class="tog snd" id="cluBtn"><span class="led"></span>Cluster</button>
       <button class="tog" id="specBtn" style="display:none"><span class="led"></span>Spektrum</button>
       <button class="tog" id="polyBtn"><span class="led"></span><span id="polyTxt">1</span></button>
+      <button class="tog" id="stkChip" title="Stockhausen-Modus beenden"><span class="led"></span>Stockhausen-Modus ✕</button>
     </div>
     <div class="grp" id="rowDraw" data-k="draw">
       <button class="ico" id="tLine" title="Gerade"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19 L9 6 L14 15 L21 4"/></svg></button>
@@ -251,7 +258,6 @@
       <button class="txt" id="mPlay">Lesen</button>
       <button class="ico" id="startBtn" title="Start"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4.5v15l12.5-7.5z"/></svg></button>
       <button class="ico" id="homeBtn" title="Zurück zum Anfang"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.5v15L1.5 12zM22.5 4.5v15L12 12z"/></svg></button>
-      <span class="help">Zeiger: am Griff ziehen · Doppeltipp auf die Zeitleiste</span>
     </div>
     <div class="grp" id="rowSpec" data-k="spec">
       <button class="tog" id="oscBtn"><span class="led"></span>Schwingungen</button>
@@ -1355,7 +1361,7 @@ $('stockBtn').onclick=()=>{
     setMode('play');
   }
   if(!S.stock){ $('specBtn').classList.toggle('on',S.spec); }
-  layoutSubs();
+  syncModes();
   S.playT=0; S.scrollX=0; updStepUI(); applyAudio(true); requestAnimationFrame(resize); dirty=true; updateFaders();
 };
 $('editBtn').onclick=()=>{ S.edit=!S.edit; $('editBtn').classList.toggle('on',S.edit); dirty=true; };
@@ -1384,7 +1390,7 @@ function applyData(d){
   if(d.stk){ Object.assign(STK,d.stk); makeImpulse(); }
   unpackLayers(d);
   S.name=d.name||'';
-  if(!!d.stock!==S.stock) $('stockBtn').click();
+  if(!!d.stock!==S.stock){ $('stockBtn').click(); if(S.stock) setTimeout(()=>toast('Stockhausen-Partitur geöffnet'),2300); }
   if(!S.stock && d.voice && d.voice!==S.voice) setVoice(d.voice);
   updateSpec();
   S.playT=0; updRaster(); updHall(); updStepUI(); fitAll(); drawEq(); save(); dirty=true; updateFaders();
@@ -1595,9 +1601,19 @@ function setOsc(on){
   hideHint(); S.osc=on; document.body.classList.toggle('osc',on); $('oscBtn').classList.toggle('on',on);
   if(!on){ S.oscPoly=false; document.body.classList.remove('oscpoly'); }
   else { S.fourN=1; S.oscMs=clamp(4000/freqOf(S.pitch),0.5,2000); }
-  muteOthers(); updateSpec(); applyAudio(true); updPoly(); layoutSubs(); requestAnimationFrame(resize); dirty=true; updateFaders();
+  muteOthers(); updateSpec(); applyAudio(true); updPoly(); syncModes(); requestAnimationFrame(resize); dirty=true; updateFaders();
 }
 $('oscBtn').onclick=()=>setOsc(!S.osc);
+// Sichtbaren Zustand immer aus S ableiten (Body-Klassen, Knöpfe, Hinweis am Special-Menü)
+function syncModes(){
+  const b=document.body;
+  b.classList.toggle('stock',!!S.stock); b.classList.toggle('osc',!!S.osc); b.classList.toggle('oscpoly',!!(S.osc&&S.oscPoly));
+  $('stockBtn').classList.toggle('on',!!S.stock); $('oscBtn').classList.toggle('on',!!S.osc);
+  $('sineBtn').classList.toggle('on',S.voice==='sine'); $('harmBtn').classList.toggle('on',S.voice==='harm'); $('cluBtn').classList.toggle('on',S.voice==='cluster');
+  $('specBadge').textContent = S.stock ? 'Stockhausen' : S.osc ? 'Schwingungen' : '';
+  layoutSubs();
+}
+$('stkChip').onclick=()=>{ if(S.stock) $('stockBtn').click(); };
 
 // Teiltöne des aktuellen Klangs: [[Amplitude, Frequenzverhältnis], …]
 function partsOf(limit){
@@ -1831,7 +1847,7 @@ function frame(now){
 
 addEventListener('pagehide',save); document.addEventListener('visibilitychange',()=>{ if(document.hidden) save(); });
 // Start: ohne Ton, mit Sinuston
-load(); S.tone=false; resize(); updPoly(); setVoice('sine',true); updateFaders(); requestAnimationFrame(frame);
+load(); S.tone=false; S.stock=false; S.osc=false; resize(); updPoly(); setVoice('sine',true); syncModes(); updateFaders(); requestAnimationFrame(frame);
 // Offline-Betrieb, wenn die App von einer Webadresse (z. B. GitHub Pages) geladen wurde
 try{ if('serviceWorker' in navigator && /^https?:$/.test(location.protocol) && /github\.io$|localhost/.test(location.hostname)) navigator.serviceWorker.register('sw.js').catch(()=>{}); }catch(e){}
 })();
