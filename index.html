@@ -81,11 +81,23 @@
   #oscBtn.on{background:#13304a;border-color:#6fb4ff;color:#e3f0ff}
   #oscBtn.on .led{background:#6fb4ff;box-shadow:0 0 8px #6fb4ff}
   /* Menü: Hauptzeile + Untermenüs, jedes in eigener Zeile */
-  #bar .row.sub{display:none} #bar .row.sub.show{display:flex}
-  .tab{display:flex;align-items:center;gap:8px;font-weight:600;min-width:104px;justify-content:center}
+  /* Untermenüs: Gruppen, die sich je nach Platz in Zeilen einordnen (erste passende Lücke) */
+  #subs{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+  #subs:empty{display:none}
+  .srow{display:flex;gap:8px;align-items:stretch;max-width:100%}
+  .grp{display:none;align-items:center;gap:6px;padding:5px 6px;border-radius:10px;border:1px solid var(--mcl);border-left:4px solid var(--mc);background:var(--mcb);flex-wrap:wrap;max-width:100%;box-sizing:border-box}
+  .grp.show{display:inline-flex}
+  /* einheitliche Farbe je Menü */
+  #rowSnd, #tab_snd  {--mc:#ffb547;--mcb:#ffb54712;--mcl:#ffb54750}
+  #rowDraw,#tab_draw {--mc:#8fd16a;--mcb:#8fd16a12;--mcl:#8fd16a50}
+  #rowPlay,#tab_play {--mc:#ff6b6b;--mcb:#ff6b6b12;--mcl:#ff6b6b50}
+  #rowSpec,#tab_spec {--mc:#b48cff;--mcb:#b48cff12;--mcl:#b48cff50}
+  #rowFile,#tab_file {--mc:#6fb4ff;--mcb:#6fb4ff12;--mcl:#6fb4ff50}
+  .tab{display:flex;align-items:center;gap:8px;font-weight:600;min-width:104px;justify-content:center;border-left:4px solid var(--mc)}
   .tab .led{width:9px;height:9px;border-radius:50%;background:#444b55}
-  .tab.open{background:#24364f;border-color:#6fb4ff;color:#fff;box-shadow:0 0 10px #6fb4ff55}
-  .tab.open .led{background:#6fb4ff;box-shadow:0 0 8px #6fb4ff}
+  .tab.open{background:var(--mcb);border-color:var(--mc);color:#fff;box-shadow:0 0 10px var(--mcl)}
+  .tab.open .led{background:var(--mc);box-shadow:0 0 8px var(--mc)}
+  #polyBtn{min-width:64px;justify-content:center;font-weight:700}
   button.ico{width:58px;min-height:48px;display:flex;align-items:center;justify-content:center;padding:0}
   button.ico .emo{font-size:24px;line-height:1}
   button.txt{min-width:84px;font-weight:600}
@@ -212,15 +224,16 @@
       <div class="sp"></div>
       <button class="tab" id="tab_file"><span class="led"></span>Datei</button>
     </div>
-    <div class="row sub" id="rowSnd">
+    <div id="subs">
+    <div class="grp" id="rowSnd" data-k="snd">
       <button class="tog" id="toneBtn"><span class="led"></span>🔊 Ton</button>
       <button class="tog snd on" id="sineBtn"><span class="led"></span>Sinus</button>
       <button class="tog snd" id="harmBtn"><span class="led"></span>Harm.</button>
       <button class="tog snd" id="cluBtn"><span class="led"></span>Cluster</button>
       <button class="tog" id="specBtn" style="display:none"><span class="led"></span>Spektrum</button>
-      <button class="tog" id="polyBtn"><span class="led"></span><span id="polyTxt">Poly 1</span></button>
+      <button class="tog" id="polyBtn"><span class="led"></span><span id="polyTxt">1</span></button>
     </div>
-    <div class="row sub" id="rowDraw">
+    <div class="grp" id="rowDraw" data-k="draw">
       <button class="ico" id="tLine" title="Gerade"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19 L9 6 L14 15 L21 4"/></svg></button>
       <button class="ico sel" id="tCurve" title="Kurve"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 14 C6 2 10 2 12 12 S18 22 22 9"/></svg></button>
       <button class="ico" id="tErase" title="Radierer (nochmals tippen = aus)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15 L13 6 L20 13 L12 21 H8 Z"/><path d="M9 10 L16 17"/><path d="M13 21 H21"/></svg></button>
@@ -230,7 +243,7 @@
       <button class="ico" id="clearBtn" title="Papierkorb"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7 H20 M9 7 V4 H15 V7 M6 7 L7 21 H17 L18 7 M10 11 V17 M14 11 V17"/></svg></button>
       <button class="ico" id="editBtn" title="Edit: Anfasser zeigen"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 H8 L20 8 L16 4 L4 16 Z M13 7 L17 11"/></svg></button>
     </div>
-    <div class="row sub" id="rowPlay">
+    <div class="grp" id="rowPlay" data-k="play">
       <button class="txt sel" id="mLive">Live</button>
       <button class="txt" id="mPlay">Lesen</button>
       <button class="ico" id="startBtn" title="Start"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4.5v15l12.5-7.5z"/></svg></button>
@@ -238,14 +251,14 @@
       <button class="ico" id="homeBtn" title="Zurück zum Anfang"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.5v15L1.5 12zM22.5 4.5v15L12 12z"/></svg></button>
       <span class="help">Zeiger: am Griff ziehen · Doppeltipp auf die Zeitleiste</span>
     </div>
-    <div class="row sub" id="rowSpec">
+    <div class="grp" id="rowSpec" data-k="spec">
       <button class="tog" id="oscBtn"><span class="led"></span>Schwingungen</button>
       <button class="tog" id="stockBtn"><span class="led"></span>Stockhausen</button>
     </div>
-    <div class="row sub" id="rowFile">
-      <div class="sp"></div>
+    <div class="grp" id="rowFile" data-k="file">
       <button class="ico" id="saveBtn" title="Speichern"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 V15 M7 10 L12 15 L17 10 M4 16 V21 H20 V16"/></svg></button>
       <button class="ico" id="openBtn" title="Öffnen"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6 H9 L11 8 H21 V19 H3 Z"/></svg></button>
+    </div>
     </div>
   </div>
 </div>
@@ -912,6 +925,7 @@ function setVoice(v){
   $('sineBtn').classList.toggle('on',v==='sine'); $('harmBtn').classList.toggle('on',v==='harm'); $('cluBtn').classList.toggle('on',v==='cluster');
   $('specBtn').style.display = v==='sine' ? 'none' : '';
   if(v!=='sine'){ buildEqTop(); showSpec(true); } else showSpec(S.spec);
+  layoutSubs();
   applyAudio();
 }
 $('sineBtn').onclick=()=>setVoice('sine');
@@ -926,10 +940,28 @@ function openMenu(k,on){
   on?openMenus.add(k):openMenus.delete(k);
   $(MENUS[k]).classList.toggle('show',on); $('tab_'+k).classList.toggle('open',on);
   if(k==='play'){ S.time=on; if(!on) stop(); dirty=true; updateFaders(); }
-  requestAnimationFrame(resize);
+  layoutSubs(); requestAnimationFrame(resize);
 }
 Object.keys(MENUS).forEach(k=> $('tab_'+k).onclick=()=>{ initAudio(); openMenu(k); });
-openMenu('snd',true);
+// Untermenüs der Reihe nach in die erste Zeile legen, in der noch genug Platz ist; sonst neue Zeile
+function layoutSubs(){
+  const box=$('subs'); if(!box) return;
+  const gap=8, avail=Math.max(200, $('bar').clientWidth-20);
+  const groups=Object.keys(MENUS).map(k=>$(MENUS[k]));
+  groups.forEach(g=>box.appendChild(g));
+  box.querySelectorAll('.srow').forEach(r=>r.remove());
+  const rows=[];
+  groups.forEach(g=>{
+    if(!g.classList.contains('show')) return;
+    const w=Math.min(g.getBoundingClientRect().width, avail); if(w<=0) return;      // im Modus ausgeblendet
+    let r=rows.find(r=>r.free >= w + (r.items.length?gap:0));
+    if(!r){ r={free:avail,items:[]}; rows.push(r); }
+    r.free -= w + (r.items.length?gap:0); r.items.push(g);
+  });
+  rows.forEach(r=>{ const d=document.createElement('div'); d.className='srow'; r.items.forEach(g=>d.appendChild(g)); box.appendChild(d); });
+}
+let lastBarW=0;
+addEventListener('resize',()=>{ const w=$('bar').clientWidth; if(w!==lastBarW){ lastBarW=w; layoutSubs(); } });
 
 function setMode(m){ if(S.running) stop(); S.mode=m; $('mLive').classList.toggle('sel',m==='live'); $('mPlay').classList.toggle('sel',m==='play'); dirty=true; }
 $('mLive').onclick=()=>setMode('live'); $('mPlay').onclick=()=>setMode('play');
@@ -1301,6 +1333,7 @@ $('stockBtn').onclick=()=>{
     setMode('play');
   }
   if(!S.stock){ $('specBtn').classList.toggle('on',S.spec); }
+  layoutSubs();
   S.playT=0; S.scrollX=0; updStepUI(); applyAudio(true); requestAnimationFrame(resize); dirty=true; updateFaders();
 };
 $('editBtn').onclick=()=>{ S.edit=!S.edit; $('editBtn').classList.toggle('on',S.edit); dirty=true; };
@@ -1490,11 +1523,12 @@ function unpackLayers(d){
 }
 function updPoly(){
   const b=$('polyBtn');
-  if(S.osc){ $('polyTxt').textContent='Poly'; b.classList.toggle('on',S.oscPoly); }
-  else { $('polyTxt').textContent='Poly '+(S.layer+1); b.classList.toggle('on', S.layer>0 || otherLayers().length>0); }
+  if(S.osc){ $('polyTxt').textContent=S.oscPoly?'1+2':'1'; b.classList.toggle('on',S.oscPoly); }
+  else { $('polyTxt').textContent=String(S.layer+1); b.classList.toggle('on', S.layer>0 || otherLayers().length>0); }
   const c = S.osc ? (S.oscPoly ? '#ff8fa3' : '') : VCOL[S.layer][0];
   b.style.borderColor = c || ''; b.style.color = c || ''; b.style.background = c ? c+'26' : '';
   b.querySelector('.led').style.background = c || ''; b.querySelector('.led').style.boxShadow = c ? '0 0 8px '+c : '';
+  layoutSubs();
 }
 $('polyBtn').onclick=()=>{
   initAudio();
@@ -1539,7 +1573,7 @@ function setOsc(on){
   hideHint(); S.osc=on; document.body.classList.toggle('osc',on); $('oscBtn').classList.toggle('on',on);
   if(!on){ S.oscPoly=false; document.body.classList.remove('oscpoly'); }
   else { S.fourN=1; S.oscMs=clamp(4000/freqOf(S.pitch),0.5,2000); }
-  muteOthers(); updateSpec(); applyAudio(true); updPoly(); requestAnimationFrame(resize); dirty=true; updateFaders();
+  muteOthers(); updateSpec(); applyAudio(true); updPoly(); layoutSubs(); requestAnimationFrame(resize); dirty=true; updateFaders();
 }
 $('oscBtn').onclick=()=>setOsc(!S.osc);
 
