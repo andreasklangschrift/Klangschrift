@@ -72,18 +72,30 @@
   input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:#2c3139}
   input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:26px;height:26px;margin-top:-10px;border-radius:50%;background:#c9a8ff;border:2px solid #1b1f25}
   #stockBtn.on{background:#3a2a5a;border-color:var(--clu);color:#f1e8ff}
-  #editBtn.on{background:#3a2a5a;border-color:var(--clu);color:#f1e8ff}
+  #editBtn.on{background:#3a2a5a;border-color:var(--clu);color:#f1e8ff;box-shadow:0 0 10px #b48cff77}
   body.stock #editBtn{display:flex!important}
-  body.stock .help{display:none}
   #stockBtn.on .led{background:var(--clu);box-shadow:0 0 8px var(--clu)}
-  body.stock .snd, body.stock #mLive, body.stock .fader.pitch, body.stock #polyBtn{opacity:.28;pointer-events:none}
-  body.stock #tCurve, body.stock #tLine{display:none}
+  body.stock .fader.pitch{opacity:.28;pointer-events:none}
   #polyBtn.on{background:#3b2430;border-color:#ff8fa3}
   #polyBtn.on .led{background:#ff8fa3;box-shadow:0 0 8px #ff8fa3}
   #oscBtn.on{background:#13304a;border-color:#6fb4ff;color:#e3f0ff}
   #oscBtn.on .led{background:#6fb4ff;box-shadow:0 0 8px #6fb4ff}
-  body.osc #timegrp, body.osc #timeBtn, body.osc #tCurve, body.osc #tLine, body.osc #tErase, body.osc #fingerBtn,
-  body.osc #fitBtn, body.osc #undoBtn, body.osc #clearBtn, body.osc .help, body.osc #saveBtn, body.osc #openBtn, body.osc #bar .row .sep{display:none!important}
+  /* Menü: Hauptzeile + Untermenüs, jedes in eigener Zeile */
+  #bar .row.sub{display:none} #bar .row.sub.show{display:flex}
+  .tab{display:flex;align-items:center;gap:8px;font-weight:600;min-width:104px;justify-content:center}
+  .tab .led{width:9px;height:9px;border-radius:50%;background:#444b55}
+  .tab.open{background:#24364f;border-color:#6fb4ff;color:#fff;box-shadow:0 0 10px #6fb4ff55}
+  .tab.open .led{background:#6fb4ff;box-shadow:0 0 8px #6fb4ff}
+  button.ico{width:58px;min-height:48px;display:flex;align-items:center;justify-content:center;padding:0}
+  button.ico .emo{font-size:24px;line-height:1}
+  button.txt{min-width:84px;font-weight:600}
+  button.ico.sel, button.txt.sel{background:#24364f;border-color:#6fb4ff;color:#fff;box-shadow:0 0 10px #6fb4ff66}
+  #startBtn.run{background:#1d3a24;border-color:var(--on);color:#d6ffde;box-shadow:0 0 10px #3fb95066}
+  #mLive.sel{background:#4a1f22;border-color:var(--rec);box-shadow:0 0 10px #ff5d5d55}
+  /* je Modus Unnötiges ausblenden */
+  body.osc #tab_draw, body.osc #tab_play, body.osc #tab_file, body.osc #rowDraw, body.osc #rowPlay, body.osc #rowFile{display:none!important}
+  body.stock #sineBtn, body.stock #harmBtn, body.stock #cluBtn, body.stock #polyBtn, body.stock #mLive, body.stock #tLine, body.stock #tCurve{display:none!important}
+  body:not(.stock) #editBtn{display:none}
   body.oscpoly .side.r .fader.pitch .cap{color:#ff8fa3} body.oscpoly .side.r .fader.pitch .fill{background:#ff8fa3}
   body.oscpoly .side.r .fader.vol .cap{color:#ff8fa3} body.oscpoly .side.r .fader.vol .fill{background:#ff8fa3}
   #tune{position:absolute;left:8px;bottom:8px;display:none;flex-direction:column;gap:4px;background:#12151add;border:1px solid var(--line);border-radius:10px;padding:6px}
@@ -102,7 +114,6 @@
   #bar .row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
   #bar .row+.row{padding-top:6px;border-top:1px solid var(--line)}
   .help{font-size:11px;color:var(--dim)}
-  @media (max-width:1300px){ .help{display:none} }
   input,textarea{-webkit-touch-callout:default!important;-webkit-user-select:text!important;user-select:text!important;touch-action:auto}
   input[type=text]{-webkit-user-select:text;user-select:text;font:inherit;font-size:16px;color:var(--txt);background:#14171b;border:1px solid #3a404a;border-radius:8px;padding:10px;width:100%}
   #fdlg{position:fixed;inset:0;background:#000a;display:none;align-items:center;justify-content:center;z-index:9}
@@ -126,12 +137,9 @@
   .seg{display:inline-flex;border:1px solid #3a404a;border-radius:8px;overflow:hidden}
   .seg button{border:0;border-radius:0;background:#23272e}
   .seg button.sel{background:#3d4450;color:#fff}
-  #tErase.sel{background:#c62828;color:#fff;font-weight:700;box-shadow:inset 0 0 0 2px #ff8a80}
-  #timegrp{display:none;align-items:center;gap:8px}
-  #timegrp.show{display:flex}
-  button.ico{width:64px;display:flex;align-items:center;justify-content:center;padding:0}
+  #tErase.sel{background:#c62828;border-color:#ff8a80;color:#fff;box-shadow:0 0 12px #ff5d5d99}
+
   #startBtn{font-weight:600}
-  #startBtn.run{background:#4a1f22;border-color:var(--rec);color:#ffd0d0}
   .sp{flex:1}
   .sep{width:1px;height:28px;background:var(--line)}
   #dlg{position:fixed;inset:0;background:#000a;display:none;align-items:center;justify-content:center;z-index:9}
@@ -141,6 +149,8 @@
   #hint{position:absolute;left:50%;top:30%;transform:translate(-50%,-50%);text-align:center;color:var(--dim);font-size:13px;pointer-events:none;line-height:1.6;transition:opacity .6s}
   #toast{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);background:#2a2f37;border:1px solid #3a404a;color:var(--txt);padding:8px 14px;border-radius:8px;font-size:13px;opacity:0;transition:opacity .3s;pointer-events:none}
   #toast.show{opacity:1}
+  #recbar{position:absolute;left:50%;top:44px;transform:translateX(-50%);display:none;gap:8px;align-items:center;background:#1f232aee;border:1px solid #3a404a;border-radius:10px;padding:8px 10px;font-weight:600}
+  #recbar.show{display:flex}
 </style>
 </head>
 <body>
@@ -157,6 +167,7 @@
       <div id="readout"></div>
       <div id="hint">Oben: Tonhöhe · Mitte: Zeit · Unten: Lautstärke<br>Stift zeichnet · 1 Finger schiebt · 2 Finger zoomen<br>„🔊 Ton“ schaltet den Klang ein</div>
       <div id="toast"></div>
+      <div id="recbar"><span id="recTxt"></span><button id="recKeep">✓ Behalten</button><button id="recDel">🗑 Löschen</button></div>
       <div id="tune">
         <div class="tr" data-v="1"><span class="nm" style="color:var(--pitch)">Ton 1</span><button data-d="-1">−1 Hz</button><button data-d="-0.1">−0,1</button><button data-d="0.1">+0,1</button><button data-d="1">+1 Hz</button></div>
         <div class="tr" data-v="2"><span class="nm" style="color:#ff8fa3">Ton 2</span><button data-d="-1">−1 Hz</button><button data-d="-0.1">−0,1</button><button data-d="0.1">+0,1</button><button data-d="1">+1 Hz</button><button data-d="eq">= Ton 1</button></div>
@@ -193,38 +204,48 @@
     </div>
   </div>
   <div id="bar">
-    <div class="row">
-      <!-- Klang -->
-      <button class="tog" id="toneBtn"><span class="led"></span>🔊 Ton</button>
-      <button class="tog snd on" id="sineBtn"><span class="led"></span>Sinuston</button>
-      <button class="tog snd" id="harmBtn"><span class="led"></span>Harm. Ton</button>
-      <button class="tog snd" id="cluBtn"><span class="led"></span>Cluster</button>
-      <button class="tog snd" id="specBtn" style="display:none"><span class="led"></span>Spektrum</button>
-      <button class="tog" id="polyBtn"><span class="led"></span><span id="polyTxt">Polyphon 1</span></button>
+    <div class="row" id="tabs">
+      <button class="tab" id="tab_snd"><span class="led"></span>Klänge</button>
+      <button class="tab" id="tab_draw"><span class="led"></span>Zeichnen</button>
+      <button class="tab" id="tab_play"><span class="led"></span>Spielen</button>
+      <button class="tab" id="tab_spec"><span class="led"></span>Special</button>
       <div class="sp"></div>
-      <!-- Zeit und Spielen -->
-      <div id="timegrp">
-        <div class="seg"><button id="mLive" class="sel">🎚 Spielen</button><button id="mPlay">▶ Abspielen</button></div>
-        <button id="homeBtn" class="ico" title="Zum Anfang"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M12 4.5v15L1.5 12zM22.5 4.5v15L12 12z" fill="currentColor"/></svg></button>
-        <button id="startBtn" class="ico" title="Start / Pause"><svg width="22" height="22" viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"/></svg></button>
-      </div>
-      <button class="tog" id="timeBtn"><span class="led"></span>Zeit</button>
+      <button class="tab" id="tab_file"><span class="led"></span>Datei</button>
     </div>
-    <div class="row">
-      <!-- Schreiben -->
-      <div class="seg"><button id="tCurve" class="sel">〰 Kurve</button><button id="tLine">📐 Gerade</button><button id="tErase">⌫ Radierer</button></div>
-      <button id="fingerBtn" title="Was macht ein Finger auf der Schreibfläche?">Finger: ✋</button>
-      <button id="fitBtn" title="Ganzes Stück auf Bildschirmbreite">⤢ Alles</button>
-      <button id="undoBtn" title="Letzten Schritt rückgängig machen">↶ Zurück</button>
-      <button id="clearBtn" title="Löschen">🗑</button>
-      <div class="sep"></div>
-      <button id="saveBtn" title="Partitur speichern">💾 Speichern</button>
-      <button id="openBtn" title="Partitur öffnen">📂 Öffnen</button>
-      <div class="sp"></div>
-      <span class="help">Doppeltipp auf die Zeitleiste setzt den Zeiger</span>
-      <button class="tog" id="oscBtn"><span class="led"></span>〰 Schwingungen</button>
-      <button class="tog" id="editBtn" style="display:none"><span class="led"></span>✎ Edit</button>
+    <div class="row sub" id="rowSnd">
+      <button class="tog" id="toneBtn"><span class="led"></span>🔊 Ton</button>
+      <button class="tog snd on" id="sineBtn"><span class="led"></span>Sinus</button>
+      <button class="tog snd" id="harmBtn"><span class="led"></span>Harm.</button>
+      <button class="tog snd" id="cluBtn"><span class="led"></span>Cluster</button>
+      <button class="tog" id="specBtn" style="display:none"><span class="led"></span>Spektrum</button>
+      <button class="tog" id="polyBtn"><span class="led"></span><span id="polyTxt">Poly 1</span></button>
+    </div>
+    <div class="row sub" id="rowDraw">
+      <button class="ico" id="tLine" title="Gerade"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19 L9 6 L14 15 L21 4"/></svg></button>
+      <button class="ico sel" id="tCurve" title="Kurve"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 14 C6 2 10 2 12 12 S18 22 22 9"/></svg></button>
+      <button class="ico" id="tErase" title="Radierer (nochmals tippen = aus)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15 L13 6 L20 13 L12 21 H8 Z"/><path d="M9 10 L16 17"/><path d="M13 21 H21"/></svg></button>
+      <button class="ico" id="fingerBtn" title="Finger: schieben / zeichnen"><span class="emo">✋</span></button>
+      <button class="ico" id="fitBtn" title="Gesamte Partitur"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 5 V19 M22 5 V19 M5 12 H19 M5 12 L9 8 M5 12 L9 16 M19 12 L15 8 M19 12 L15 16"/></svg></button>
+      <button class="ico" id="undoBtn" title="Rückgängig"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5 L4 10 L9 15"/><path d="M4 10 H15 A5 5 0 0 1 15 20 H9"/></svg></button>
+      <button class="ico" id="clearBtn" title="Papierkorb"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7 H20 M9 7 V4 H15 V7 M6 7 L7 21 H17 L18 7 M10 11 V17 M14 11 V17"/></svg></button>
+      <button class="ico" id="editBtn" title="Edit: Anfasser zeigen"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20 H8 L20 8 L16 4 L4 16 Z M13 7 L17 11"/></svg></button>
+    </div>
+    <div class="row sub" id="rowPlay">
+      <button class="txt sel" id="mLive">Live</button>
+      <button class="txt" id="mPlay">Lesen</button>
+      <button class="ico" id="startBtn" title="Start"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4.5v15l12.5-7.5z"/></svg></button>
+      <button class="ico" id="stopBtn" title="Stopp"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5.5" y="4.5" width="4.5" height="15" rx="1"/><rect x="14" y="4.5" width="4.5" height="15" rx="1"/></svg></button>
+      <button class="ico" id="homeBtn" title="Zurück zum Anfang"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.5v15L1.5 12zM22.5 4.5v15L12 12z"/></svg></button>
+      <span class="help">Zeiger: am Griff ziehen · Doppeltipp auf die Zeitleiste</span>
+    </div>
+    <div class="row sub" id="rowSpec">
+      <button class="tog" id="oscBtn"><span class="led"></span>Schwingungen</button>
       <button class="tog" id="stockBtn"><span class="led"></span>Stockhausen</button>
+    </div>
+    <div class="row sub" id="rowFile">
+      <div class="sp"></div>
+      <button class="ico" id="saveBtn" title="Speichern"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 V15 M7 10 L12 15 L17 10 M4 16 V21 H20 V16"/></svg></button>
+      <button class="ico" id="openBtn" title="Öffnen"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6 H9 L11 8 H21 V19 H3 Z"/></svg></button>
     </div>
   </div>
 </div>
@@ -458,8 +479,10 @@ faders.forEach(el=>{
     const r = el.getBoundingClientRect(), k=keyOf(el);
     let v = clamp(1 - (e.clientY - r.top - PAD)/(r.height - 2*PAD));
     // Schwingungen + Polyphon: gleiche Amplitude rastet ein
-    if(S.osc && S.oscPoly && key==='vol'){ const other = k==='vol' ? S.vol2 : S.vol; if(Math.abs(v-other)<0.025) v=other; }
-    if(key==='fine' && Math.abs(v-0.5)<0.02) v=0.5;                     // Mitte (0 Hz) rastet ein
+    const px = r.height - 2*PAD;                                       // Einrasten nur in einem schmalen Bereich (Pixel)
+    if(S.osc && S.oscPoly && key==='vol'){ const o = k==='vol' ? S.vol2 : S.vol; if(Math.abs(v-o)*px<3) v=o; }
+    if(S.osc && S.oscPoly && key==='pitch'){ const o = k==='pitch' ? S.pitch2 : S.pitch; if(Math.abs(v-o)*px<2.5) v=o; }   // gleiche Frequenz
+    if(key==='fine'){ const o = k==='fine1' ? S.fine2 : S.fine1; if(Math.abs(v-0.5)*px<1.5) v=0.5; else if(Math.abs(v-o)*px<1.5) v=o; }
     S[k] = v;
     applyAudio(); updateFaders(); dirty=true;
   };
@@ -624,7 +647,7 @@ function draw(){
       ctx.beginPath(); ctx.roundRect ? ctx.roundRect(x-11,rt-3,22,RULER+6,6) : ctx.rect(x-11,rt-3,22,RULER+6); ctx.fill();
       ctx.fillStyle='#0d0f12'; ctx.fillRect(x-4,rt+6,1.5,RULER-12); ctx.fillRect(x-0.75,rt+6,1.5,RULER-12); ctx.fillRect(x+2.5,rt+6,1.5,RULER-12);
       if(S.rest && S.running){ ctx.globalAlpha=.3; }
-      if(!S.stock){ dot(x,yOf('pitch',S.pitch),'#ffb547'); dot(x,yOf('vol',S.vol),'#4fd1c5'); }
+      if(!S.stock){ dot(x,yOf('pitch',S.pitch),VCOL[S.layer][0]); dot(x,yOf('vol',S.vol),VCOL[S.layer][1]); }
       ctx.globalAlpha=1;
       if(S.rest && S.running){ ctx.fillStyle='#c4d2e4'; ctx.font='600 11px -apple-system,system-ui,sans-serif'; ctx.fillText('Pause',x+8,rt-10); }
     }
@@ -657,7 +680,7 @@ function drawCurve(arr,lane,color,fill,lw){
 let gest=null, pinch=null;
 const touches=new Map();
 const fingerBtn=document.getElementById('fingerBtn');
-function setFinger(m){ S.finger=m; fingerBtn.textContent = 'Finger: '+(m==='draw'?'✏️':'✋'); }
+function setFinger(m){ S.finger=m; fingerBtn.innerHTML = '<span class="emo">'+(m==='draw'?'✏️':'✋')+'</span>'; fingerBtn.classList.toggle('sel',m==='draw'); }
 fingerBtn.onclick=()=>setFinger(S.finger==='draw'?'pan':'draw');
 
 const contentEnd = ()=> Math.max(pieceEnd(), lenT(take), 0.5);
@@ -895,11 +918,23 @@ $('sineBtn').onclick=()=>setVoice('sine');
 $('harmBtn').onclick=()=>setVoice('harm');
 $('cluBtn').onclick=()=>setVoice('cluster');
 $('specBtn').onclick=()=>showSpec(S.stock ? !S.stkPanel : !S.spec);
-tog($('timeBtn'),'time',()=>{ $('timegrp').classList.toggle('show',S.time); if(!S.time) stop(); dirty=true; updateFaders(); });
+// Hauptmenü: jedes Untermenü in eigener Zeile; „Spielen“ blendet zugleich Zeitleiste/Zeiger ein
+const MENUS={snd:'rowSnd',draw:'rowDraw',play:'rowPlay',spec:'rowSpec',file:'rowFile'};
+const openMenus=new Set();
+function openMenu(k,on){
+  if(on===undefined) on=!openMenus.has(k);
+  on?openMenus.add(k):openMenus.delete(k);
+  $(MENUS[k]).classList.toggle('show',on); $('tab_'+k).classList.toggle('open',on);
+  if(k==='play'){ S.time=on; if(!on) stop(); dirty=true; updateFaders(); }
+  requestAnimationFrame(resize);
+}
+Object.keys(MENUS).forEach(k=> $('tab_'+k).onclick=()=>{ initAudio(); openMenu(k); });
+openMenu('snd',true);
 
 function setMode(m){ if(S.running) stop(); S.mode=m; $('mLive').classList.toggle('sel',m==='live'); $('mPlay').classList.toggle('sel',m==='play'); dirty=true; }
 $('mLive').onclick=()=>setMode('live'); $('mPlay').onclick=()=>setMode('play');
-function updStart(){ const b=$('startBtn'); b.innerHTML=S.running?'<svg width="22" height="22" viewBox="0 0 24 24"><rect x="5.5" y="4.5" width="4.5" height="15" rx="1" fill="currentColor"/><rect x="14" y="4.5" width="4.5" height="15" rx="1" fill="currentColor"/></svg>':'<svg width="22" height="22" viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"/></svg>'; b.classList.toggle('run',S.running); }
+function updStart(){ $('startBtn').classList.toggle('run',S.running); return;
+  const b=$('startBtn'); b.innerHTML=S.running?'<svg width="22" height="22" viewBox="0 0 24 24"><rect x="5.5" y="4.5" width="4.5" height="15" rx="1" fill="currentColor"/><rect x="14" y="4.5" width="4.5" height="15" rx="1" fill="currentColor"/></svg>':'<svg width="22" height="22" viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"/></svg>'; b.classList.toggle('run',S.running); }
 function start(){
   initAudio();
   const end=pieceEnd();
@@ -915,20 +950,34 @@ function start(){
     if(!isNaN(p)) S.pitch=p; if(!isNaN(v)) S.vol=v;
     S.recTarget=null;
   } else {
-    // Spielen: mit Vorzeichnung → gespielte Linie zum Vergleich; ohne → Improvisation wird zur Partitur
-    S.recTarget = end>0 ? 'take' : 'notation';
-    if(S.recTarget==='take'){
-      if(S.playT >= end-0.02) S.playT=0;
-      if(S.playT<=0.001) take={pitch:[],vol:[]};
+    // Live: Einspielen in Echtzeit. Hat die aktive Stimme schon Noten, kommt die Einspielung in die nächste freie Stimme –
+    // die vorhandenen Stimmen klingen dabei mit (wie bei Polyphon, nur gespielt statt gezeichnet).
+    pushUndo();
+    S.recPrev=null;
+    if(hasNotation({curves})){
+      const free=[1,2,3].map(o=>(S.layer+o)%4).find(i=>!hasNotation(layers[i]));
+      if(free===undefined){ undoStack.pop(); updUndo(); toast('Alle 4 Stimmen sind belegt – erst eine löschen'); return; }
+      S.recPrev=S.layer; switchLayer(free);
     }
+    S.recTarget='notation';
+    S.recEnd = otherLayers().reduce((m,o)=>Math.max(m,lenT(o.L.curves)),0);   // mit anderen Stimmen: bis zu deren Schluss
+    if(S.recEnd>0 && S.playT >= S.recEnd-0.02) S.playT=0;
+    S.recNew=true; hideRecBar();
   }
-  if(S.mode==='live') pushUndo();                  // Aufnahme lässt sich rückgängig machen
   prepareLayers();
   S.running=true; recLast={pitch:null,vol:null}; updStart(); applyAudio(true); dirty=true;
 }
 function trim(set){ for(const k in set){ const a=set[k]; while(a.length && isNaN(a[a.length-1])) a.pop(); } }
-function stop(){ if(!S.running) return; stopStock(); if(ac) muteOthers(); S.running=false; S.recTarget=null; S.rest=false; trim(curves); trim(take); updStart(); applyAudio(true); save(); dirty=true; updateFaders(); }
-$('startBtn').onclick=()=> S.running?stop():start();
+function stop(){ if(!S.running) return; stopStock(); if(ac) muteOthers(); S.running=false; S.recTarget=null; S.rest=false; trim(curves); trim(take);
+  if(S.recNew){ S.recNew=false; if(hasNotation({curves})) showRecBar(); }
+  updStart(); applyAudio(true); updPoly(); save(); dirty=true; updateFaders(); }
+// Nach dem Einspielen: behalten oder löschen
+function showRecBar(){ $('recTxt').textContent='Stimme '+(S.layer+1)+' eingespielt'; $('recbar').classList.add('show'); }
+function hideRecBar(){ $('recbar').classList.remove('show'); }
+$('recKeep').onclick=hideRecBar;
+$('recDel').onclick=()=>{ hideRecBar(); curves={pitch:[],vol:[]}; take={pitch:[],vol:[]}; if(S.recPrev!=null) switchLayer(S.recPrev); S.recPrev=null; updPoly(); save(); dirty=true; };
+$('startBtn').onclick=()=>{ if(!S.running) start(); };
+$('stopBtn').onclick=()=> stop();
 $('homeBtn').onclick=()=>{ S.playT=0; S.scrollX=0; recLast={pitch:null,vol:null}; dirty=true; updateFaders(); };
 $('fitBtn').onclick=fitAll;
 
@@ -1248,7 +1297,7 @@ $('stockBtn').onclick=()=>{
   document.body.classList.toggle('stock',S.stock); $('stockBtn').classList.toggle('on',S.stock);
   if(S.stock){
     showSpec(true);
-    if(!S.time){ S.time=true; $('timeBtn').classList.add('on'); $('timegrp').classList.add('show'); }
+    if(!S.time) openMenu('play',true);
     setMode('play');
   }
   if(!S.stock){ $('specBtn').classList.toggle('on',S.spec); }
@@ -1441,8 +1490,8 @@ function unpackLayers(d){
 }
 function updPoly(){
   const b=$('polyBtn');
-  if(S.osc){ $('polyTxt').textContent='Polyphon'; b.classList.toggle('on',S.oscPoly); }
-  else { $('polyTxt').textContent='Polyphon '+(S.layer+1); b.classList.toggle('on', S.layer>0 || otherLayers().length>0); }
+  if(S.osc){ $('polyTxt').textContent='Poly'; b.classList.toggle('on',S.oscPoly); }
+  else { $('polyTxt').textContent='Poly '+(S.layer+1); b.classList.toggle('on', S.layer>0 || otherLayers().length>0); }
   const c = S.osc ? (S.oscPoly ? '#ff8fa3' : '') : VCOL[S.layer][0];
   b.style.borderColor = c || ''; b.style.color = c || ''; b.style.background = c ? c+'26' : '';
   b.querySelector('.led').style.background = c || ''; b.querySelector('.led').style.boxShadow = c ? '0 0 8px '+c : '';
@@ -1476,7 +1525,7 @@ function snapMs(ms){
   const fs = S.oscPoly ? [oscF1(),oscF2()] : [oscF1()];
   let best=ms, bd=Infinity;
   for(const f of fs){ const q=1000/(4*f), c=Math.round(ms/q)*q, d=Math.abs(c-ms); if(d<bd){ bd=d; best=c; } }
-  return (xOfMs(bd) < 18) ? Math.max(0,best) : ms;
+  return (xOfMs(bd) < 5) ? Math.max(0,best) : ms;
 }
 function fmtMs(ms){
   if(ms>=1000) return String(+(ms/1000).toFixed(3)).replace('.',',')+' s';
@@ -1684,8 +1733,9 @@ function frame(now){
   if(S.running){
     const tPrev=S.playT; if(!S.scrub) S.playT+=dt;
     const end=pieceEnd();
-    const bounded = S.mode==='play' || S.recTarget==='take';      // läuft bis zum Schluss der Partitur
-    if(bounded && S.playT>=end) S.playT=end;
+    const bounded = S.mode==='play' || S.stock || (S.mode==='live' && S.recEnd>0);   // läuft bis zum Schluss der Partitur
+    const endB = (S.mode==='live' && !S.stock) ? S.recEnd : end;
+    if(bounded && S.playT>=endB) S.playT=endB;
     if(S.mode==='live'){
       // Spielen: die Regler werden laufend aufgezeichnet; Lautstärke auf 0 = Pause (Linie wird unterbrochen)
       const tgt = S.recTarget==='take' ? take : curves;
@@ -1700,7 +1750,7 @@ function frame(now){
     } else {
       if(S.stock){ scheduleStock(); }
       // Abspielen: die Partitur bewegt die Regler; wo eine Linie unterbrochen ist, ist Pause
-      let rest=false;
+      let rest = !S.stock && !hasNotation({curves}) && otherLayers().length>0;
       if(!S.stock)
       for(const lane of ['pitch','vol']){
         const arr=curves[lane];
@@ -1713,11 +1763,11 @@ function frame(now){
     // Zeiger läuft bis zur Mitte, dann läuft das Band; erscheint der Schluss, läuft der Zeiger nach rechts
     if(!userScrolling()){
       let sx = S.playT*S.pps - W/2;
-      if(bounded) sx = Math.min(sx, end*S.pps - (W-24));
+      if(bounded) sx = Math.min(sx, endB*S.pps - (W-24));
       S.scrollX = Math.max(0, sx);
     }
     applyAudio(); if(!S.stock) playLayers(); updateFaders(); dirty=true;
-    if(bounded && S.playT>=end) stop();             // automatisch am Schluss anhalten
+    if(bounded && S.playT>=endB) stop();             // automatisch am Schluss anhalten
   }
   if(dirty) draw();
   requestAnimationFrame(frame);
