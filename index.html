@@ -52,6 +52,21 @@
   #readout b{font-weight:600}
 
   #rp{display:flex;min-height:0}
+  #npanel{display:none;width:214px;background:var(--panel);border-left:1px solid var(--line);padding:8px;flex-direction:column;gap:7px;overflow-y:auto;height:100%}
+  #npanel h3{margin:0;font-size:13px;color:#cfe4ff;letter-spacing:.04em}
+  #npanel .t{font-size:10px;color:var(--dim);letter-spacing:.05em}
+  #npanel .ng2,#npanel .ng3,#npanel .ng4{display:grid;gap:4px} #npanel .ng2{grid-template-columns:1fr 1fr} #npanel .ng3{grid-template-columns:1fr 1fr 1fr} #npanel .ng4{grid-template-columns:repeat(4,1fr)}
+  #npanel button{padding:6px 2px;font-size:12px;min-height:36px}
+  /* Feld-Knöpfe: wie im Menü – zart getönt, aktiv dicht und hell leuchtend */
+  #eq .top button, #npanel button{background:linear-gradient(160deg,#ffb5471f,#ffffff08);border:1.5px solid #ffb54799;color:var(--txt)}
+  #eq .top button.sel, #npanel button.sel, #npanel #nTrack.on{background:linear-gradient(160deg,#ffb547a6,#ffb54740);border-color:#ffb547;color:#fff;font-weight:700;box-shadow:0 0 14px #ffb54799, inset 0 1px 0 #ffffff55}
+  #stk .grid button{background:linear-gradient(160deg,#b48cff1f,#ffffff08);border:1.5px solid #b48cff99}
+  #stk .grid button.sel{background:linear-gradient(160deg,#b48cffa6,#b48cff40);border-color:#b48cff;color:#fff;font-weight:700;box-shadow:0 0 14px #b48cff99, inset 0 1px 0 #ffffff55}
+  body.light #eq .top button.sel, body.light #npanel button.sel, body.light #npanel #nTrack.on{background:linear-gradient(160deg,#ffb547,#ffb547a6);color:#15191e}
+  body.light #stk .grid button.sel{background:linear-gradient(160deg,#b48cff,#b48cffa6);color:#15191e}
+  #nTrack{width:100%;justify-content:center;margin-bottom:4px}
+  body.light #npanel h3{color:#1d4f8f}
+  body.light #npanel button.sel, body.light #npanel #nTrack.on{color:#15191e}
   #eq{display:none;width:210px;background:var(--panel);border-left:1px solid var(--line);grid-template-rows:auto 1fr;min-height:0;height:100%}
   #eq.show{display:grid}
   #stk{display:none;width:220px;background:var(--panel);border-left:1px solid var(--line);padding:8px;flex-direction:column;gap:8px;overflow-y:auto;height:100%}
@@ -62,7 +77,7 @@
   #stk h3{margin:0;font-size:13px;color:#e8d9ff;letter-spacing:.04em}
   #stk .grid{display:grid;grid-template-columns:1fr 1fr;gap:4px}
   #stk .grid button{padding:6px 2px;font-size:12px;min-height:36px}
-  #stk .grid button.sel{background:#4b3a70;border-color:var(--clu);color:#fff}
+
   .step{font-size:12px;line-height:1.35;padding:7px 8px;border-radius:8px;background:#1d2127;color:var(--dim);border:1px solid transparent}
   .step.now{background:#2a2140;border-color:var(--clu);color:#efe6ff}
   .step b{color:inherit}
@@ -82,7 +97,7 @@
   #oscBtn.on .led{background:#6fb4ff;box-shadow:0 0 8px #6fb4ff}
   /* Menü: Hauptzeile + Untermenüs, jedes in eigener Zeile */
   /* Untermenüs: Gruppen, die sich je nach Platz in Zeilen einordnen (erste passende Lücke) */
-  #subs{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+  #subs{display:flex;flex-direction:column-reverse;align-items:flex-start;gap:6px}   /* erste Zeile direkt über der Hauptzeile, weitere wachsen nach oben */
   #subs:empty{display:none}
   .srow{display:flex;gap:8px;align-items:stretch;max-width:100%}
   .grp{display:none;align-items:center;gap:6px;padding:6px 7px;border-radius:14px;border:2px solid var(--mcl);
@@ -91,11 +106,11 @@
   .grp button{background:#ffffff10;border-color:#ffffff22;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
   .grp.show{display:inline-flex}
   /* einheitliche Farbe je Menü */
-  #rowSnd, #tab_snd  {--mc:#ffb547;--mcb:#ffb5471f;--mcg:#ffb54740;--mcl:#ffb54799}
-  #rowDraw,#tab_draw {--mc:#8fd16a;--mcb:#8fd16a1f;--mcg:#8fd16a40;--mcl:#8fd16a99}
-  #rowPlay,#tab_play {--mc:#ff6b6b;--mcb:#ff6b6b1f;--mcg:#ff6b6b40;--mcl:#ff6b6b99}
-  #rowSpec,#tab_spec {--mc:#b48cff;--mcb:#b48cff1f;--mcg:#b48cff40;--mcl:#b48cff99}
-  #rowFile,#tab_file {--mc:#6fb4ff;--mcb:#6fb4ff1f;--mcg:#6fb4ff40;--mcl:#6fb4ff99}
+  #rowSnd, #tab_snd  {--mc:#ffb547;--mcb:#ffb5471f;--mcg:#ffb54740;--mcl:#ffb54799;--mca:#ffb547a6}
+  #rowDraw,#tab_draw {--mc:#8fd16a;--mcb:#8fd16a1f;--mcg:#8fd16a40;--mcl:#8fd16a99;--mca:#8fd16aa6}
+  #rowPlay,#tab_play {--mc:#ff6b6b;--mcb:#ff6b6b1f;--mcg:#ff6b6b40;--mcl:#ff6b6b99;--mca:#ff6b6ba6}
+  #rowSpec,#tab_spec {--mc:#b48cff;--mcb:#b48cff1f;--mcg:#b48cff40;--mcl:#b48cff99;--mca:#b48cffa6}
+  #rowFile,#tab_file {--mc:#6fb4ff;--mcb:#6fb4ff1f;--mcg:#6fb4ff40;--mcl:#6fb4ff99;--mca:#6fb4ffa6}
   .tab{display:flex;align-items:center;gap:8px;font-weight:600;min-width:104px;justify-content:center;border:2px solid var(--mcl);
         background:linear-gradient(160deg,var(--mcb),#ffffff08);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:inset 0 1px 0 #ffffff1f;border-radius:12px}
   .tab .led{width:9px;height:9px;border-radius:50%;background:#444b55}
@@ -110,14 +125,62 @@
   #mLive.sel{background:#4a1f22;border-color:var(--rec);box-shadow:0 0 10px #ff5d5d55}
   /* je Modus Unnötiges ausblenden */
   body.osc #tab_draw, body.osc #tab_play, body.osc #tab_file, body.osc #rowDraw, body.osc #rowPlay, body.osc #rowFile{display:none!important}
-  body.stock #sineBtn, body.stock #harmBtn, body.stock #cluBtn, body.stock #polyBtn, body.stock #mLive, body.stock #tLine, body.stock #tCurve{display:none!important}
+  body.stock #sineBtn, body.stock #harmBtn, body.stock #cluBtn, body.stock #polyBtn, body.stock #noiseBtn, body.stock #mLive, body.stock #tLine, body.stock #tCurve{display:none!important}
   body:not(.stock) #editBtn{display:none}
   /* Im Stockhausen-Modus sind die Klangknöpfe ausgeblendet – ein Hinweis zeigt warum und beendet den Modus */
+
+  /* ===== Heller Modus ===== */
+  body.light{--bg:#c9cdd2;--panel:#d5d8dc;--panel2:#d0d3d8;--line:#aeb4bc;--txt:#1b1f25;--dim:#5d6673;--pitch:#d98200;--vol:#0f9488;--clu:#7d4fd6;--rulerbg:#d9b1b5;--on:#2e9e44;--rec:#d63a3a}
+  body.light .side .hd{color:#5a1018}
+  /* Reglerspalten dunkelgrau abgesetzt */
+  body.light .side{background:linear-gradient(180deg,#535963,#474c55)}
+  body.light .side.l{border-right-color:#3d424a} body.light .side.r{border-left-color:#3d424a}
+  body.light .fader .track{background:#2f333a;box-shadow:inset 0 0 0 1px #262a30}
+  body.light .fader .ticks i{background:#666d77} body.light .fader .ticks i.big{background:#8c939d}
+  body.light .fader.fine::before{color:#c9ced5}
+  body.light .fader .cap{background:linear-gradient(#f1f2f4,#e3e5e8 45%,#d6d9dd 55%,#e6e8eb);box-shadow:0 2px 6px #0003,inset 0 1px #fff}
+  body.light button{color:var(--txt);background:#dcdfe3;border-color:#a9b0b8}
+  body.light #bar{background:radial-gradient(120% 140% at 10% 0%,#d6d9dd 0%,#cbcfd4 55%,#c0c5cb 100%)}
+  body.light .grp button{background:#ffffffb3;border-color:#0000001f}
+  body.light .grp{box-shadow:inset 0 1px 0 #ffffffcc, 0 6px 16px #0000001a}
+  body.light .tab{background:linear-gradient(160deg,var(--mcb),#ffffffcc);box-shadow:inset 0 1px 0 #ffffffcc}
+  body.light .tab.open{color:#1b1f25}
+  body.light .tab .led{background:#c3c9d2}
+  body.light button.ico.sel, body.light button.txt.sel{background:#dbe9fb;border-color:#2b78d6;color:#123a6b;box-shadow:0 0 10px #2b78d644}
+  body.light #mLive.sel{background:#fbdcdc;border-color:#d63a3a;color:#7a1414}
+  body.light #startBtn.run{background:#d6f2dc;border-color:#2e9e44;color:#14532d}
+  body.light #tErase.sel{background:#d63a3a;color:#fff}
+  body.light .tog .led{background:#c3c9d2;box-shadow:inset 0 1px 2px #0002}
+  body.light #toneBtn.on{background:#d6f2dc;border-color:#2e9e44;color:#14532d}
+  body.light #readout{background:#d3d6dad9;color:#5d6673}
+  body.light #eq, body.light #stk, body.light #npanel{background:#d0d3d7}
+  body.light .step{background:#c3c7cc} body.light .step.now{background:#ece4fb;color:#3b2470}
+  body.light #stk h3{color:#4b2a8f}
+  body.light #dlg>div, body.light #fdlg>div{background:#e9ebee}
+  body.light #toast, body.light #recbar{background:#e9ebeef2;border-color:#c9cfd6;color:#1b1f25}
+  body.light #tune{background:#cfd2d6e6}
+  body.light input[type=text], body.light textarea{background:#eef0f2!important;color:#1b1f25!important;border-color:#c9cfd6!important}
+  body.light .lib .it{background:#dde0e4}
+  body.light #stkChip{color:#3b2470}
+  .tico{font-size:20px;line-height:1;margin-right:6px}
+  /* ===== Einheitliche Knöpfe: Menüfarbe, aktiv = dichter und leuchtend (keine Lampen) ===== */
+  #bar .grp > button{background:linear-gradient(160deg,var(--mcb),#ffffff08);border:1.5px solid var(--mcl);color:var(--txt);box-shadow:inset 0 1px 0 #ffffff1a;gap:6px}
+  #bar .grp > button.on, #bar .grp > button.sel, #bar .grp > button.run{background:linear-gradient(160deg,var(--mca),var(--mcg));border-color:var(--mc);color:#fff;
+       box-shadow:0 0 14px var(--mcl), inset 0 1px 0 #ffffff55;font-weight:700}
+  #bar .tab{gap:0}
+  #bar .tab.open, #bar .tab.mode{background:linear-gradient(160deg,var(--mca),var(--mcg));border-color:var(--mc);color:#fff;box-shadow:0 0 14px var(--mcl), inset 0 1px 0 #ffffff55}
+  body.light #bar .grp > button{background:linear-gradient(160deg,var(--mcb),#ffffff40);border-color:var(--mcl);color:#22272e;box-shadow:inset 0 1px 0 #ffffff80}
+  body.light #bar .grp > button.on, body.light #bar .grp > button.sel, body.light #bar .grp > button.run,
+  body.light #bar .tab.open, body.light #bar .tab.mode{background:linear-gradient(160deg,var(--mc),var(--mca));color:#15191e;box-shadow:0 0 12px var(--mcl), inset 0 1px 0 #ffffffa0}
+  body.light #bar .grp > button{opacity:.92}
+  #toneBtn{min-width:0}
+  #themeBtn{--mc:#8a939e;--mcb:#8a939e1a;--mcg:#8a939e33;--mcl:#8a939e70;--mca:#8a939ea6}
+  body.light #oscBtn.on{background:#dbe9fb;border-color:#2b78d6;color:#123a6b}
+  body.light #stockBtn.on, body.light #editBtn.on, body.light #stkChip{background:#ece4fb;border-color:#7d4fd6;color:#3b2470}
+  body.light #specBtn.on, body.light .tog.on{color:#1b1f25}
   #stkChip{display:none;border-color:#b48cff;color:#efe6ff;background:#b48cff2a}
   #stkChip .led{background:#b48cff;box-shadow:0 0 8px #b48cff}
   body.stock #stkChip{display:flex}
-  #specBadge{font-size:11px;font-weight:700;color:#efe6ff;background:#b48cff55;border-radius:6px;padding:2px 6px;margin-left:2px}
-  #specBadge:empty{display:none}
   body.oscpoly .side.r .fader.pitch .cap{color:#ff8fa3} body.oscpoly .side.r .fader.pitch .fill{background:#ff8fa3}
   body.oscpoly .side.r .fader.vol .cap{color:#ff8fa3} body.oscpoly .side.r .fader.vol .fill{background:#ff8fa3}
   #tune{position:absolute;left:8px;bottom:8px;display:none;flex-direction:column;gap:4px;background:#12151add;border:1px solid var(--line);border-radius:10px;padding:6px}
@@ -154,7 +217,7 @@
   .tog .led{width:10px;height:10px;border-radius:50%;background:#444b55;box-shadow:inset 0 1px 2px #000}
   .tog.on .led{background:var(--on);box-shadow:0 0 8px var(--on)}
   #cluBtn.on .led{background:var(--clu);box-shadow:0 0 8px var(--clu)}
-  #toneBtn{font-weight:700;min-width:96px;justify-content:center}
+  #toneBtn{width:58px;min-width:0;justify-content:center;padding:0}
   #toneBtn.on{background:#1d3a24;border-color:var(--on);color:#d6ffde}
   .seg{display:inline-flex;border:1px solid #3a404a;border-radius:8px;overflow:hidden}
   .seg button{border:0;border-radius:0;background:#23272e}
@@ -196,6 +259,22 @@
       </div>
     </div>
     <div id="rp">
+    <div id="npanel">
+      <h3>RAUSCHEN</h3>
+      <div class="t">FARBE</div>
+      <div class="ng3" id="nColor"><button data-v="white">Weiß</button><button data-v="pink">Rosa</button><button data-v="brown">Braun</button></div>
+      <div class="t">FILTER</div>
+      <div class="ng4" id="nFilter"><button data-v="none">Ohne</button><button data-v="band">Band</button><button data-v="low">Tief</button><button data-v="high">Hoch</button></div>
+      <div id="nFreqBox">
+        <button class="tog" id="nTrack">Mitte folgt dem Grundton</button>
+        <div class="t" id="nFreqLbl"></div><input type="range" id="nFreq" min="0" max="1000" step="1">
+      </div>
+      <div id="nBwBox"><div class="t" id="nBwLbl"></div><input type="range" id="nBw" min="0.1" max="6" step="0.1"></div>
+      <div class="t" id="nMixLbl"></div><input type="range" id="nMix" min="0" max="100" step="1">
+      <div class="t">VORLAGEN</div>
+      <div class="ng2" id="nPre"><button data-p="flute">Atem (Flöte)</button><button data-p="bow">Bogen (Streicher)</button><button data-p="wind">Wind</button><button data-p="surf">Brandung</button></div>
+      <div class="t" style="line-height:1.4">Das Rauschen gehört zur Stimme: es folgt Lautstärke, Pausen und – wenn gewählt – dem Grundton.</div>
+    </div>
     <div id="eq">
       <div class="top" id="eqtop"></div>
       <div id="eqwrap"><canvas id="eqc"></canvas></div>
@@ -226,22 +305,16 @@
     </div>
   </div>
   <div id="bar">
-    <div class="row" id="tabs">
-      <button class="tab" id="tab_snd"><span class="led"></span>Klänge</button>
-      <button class="tab" id="tab_draw"><span class="led"></span>Zeichnen</button>
-      <button class="tab" id="tab_play"><span class="led"></span>Spielen</button>
-      <button class="tab" id="tab_spec"><span class="led"></span>Special<span id="specBadge"></span></button>
-      <button class="tab" id="tab_file"><span class="led"></span>Datei</button>
-    </div>
     <div id="subs">
     <div class="grp" id="rowSnd" data-k="snd">
-      <button class="tog" id="toneBtn"><span class="led"></span>🔊 Ton</button>
-      <button class="tog snd on" id="sineBtn"><span class="led"></span>Sinus</button>
-      <button class="tog snd" id="harmBtn"><span class="led"></span>Harm.</button>
-      <button class="tog snd" id="cluBtn"><span class="led"></span>Cluster</button>
-      <button class="tog" id="specBtn" style="display:none"><span class="led"></span>Spektrum</button>
-      <button class="tog" id="polyBtn"><span class="led"></span><span id="polyTxt">1</span></button>
-      <button class="tog" id="stkChip" title="Stockhausen-Modus beenden"><span class="led"></span>Stockhausen-Modus ✕</button>
+      <button class="tog" id="toneBtn" title="Ton an/aus"><span style="font-size:20px;line-height:1">🔊</span></button>
+      <button class="tog snd on" id="sineBtn">Sinus</button>
+      <button class="tog snd" id="harmBtn">Harm.</button>
+      <button class="tog snd" id="cluBtn">Cluster</button>
+      <button class="tog" id="noiseBtn" title="Rauschen zumischen">Rauschen</button>
+      <button class="tog" id="specBtn" style="display:none">Spektrum</button>
+      <button class="tog" id="polyBtn"><span id="polyTxt">1</span></button>
+      <button class="tog" id="stkChip" title="Stockhausen-Modus beenden">Stockhausen-Modus ✕</button>
     </div>
     <div class="grp" id="rowDraw" data-k="draw">
       <button class="ico" id="tLine" title="Gerade"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19 L9 6 L14 15 L21 4"/></svg></button>
@@ -260,13 +333,22 @@
       <button class="ico" id="homeBtn" title="Zurück zum Anfang"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" stroke="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4.5v15L1.5 12zM22.5 4.5v15L12 12z"/></svg></button>
     </div>
     <div class="grp" id="rowSpec" data-k="spec">
-      <button class="tog" id="oscBtn"><span class="led"></span>Schwingungen</button>
-      <button class="tog" id="stockBtn"><span class="led"></span>Stockhausen</button>
+      <button class="tog" id="oscBtn">Schwingungen</button>
+      <button class="tog" id="stockBtn">Stockhausen</button>
     </div>
     <div class="grp" id="rowFile" data-k="file">
       <button class="ico" id="saveBtn" title="Speichern"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 V15 M7 10 L12 15 L17 10 M4 16 V21 H20 V16"/></svg></button>
       <button class="ico" id="openBtn" title="Öffnen"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6 H9 L11 8 H21 V19 H3 Z"/></svg></button>
     </div>
+    </div>
+    <div class="row" id="tabs">
+      <button class="tab" id="tab_snd">Klänge</button>
+      <button class="tab" id="tab_draw">Zeichnen</button>
+      <button class="tab" id="tab_play">Spielen</button>
+      <button class="tab" id="tab_spec">Special</button>
+      <button class="tab" id="tab_file">Datei</button>
+      <div class="sp"></div>
+      <button class="tab" id="themeBtn" title="Hell / Dunkel"><span class="tico">◐</span><span id="themeTxt">Hell</span></button>
     </div>
   </div>
 </div>
@@ -319,6 +401,9 @@ const S = {
   touching: { pitch: 0, vol: 0, fine: 0 }, fine1: 0.5, fine2: 0.5, scrub: false
 };
 let curves = { pitch: [], vol: [] };      // Partitur (vorgezeichnet)
+// Rauschen der aktiven Stimme: Farbe, Filter, Mitte (fest in Hz oder als Vielfaches des Grundtons), Bandbreite, Mischung Ton↔Rauschen
+const defaultNoise = ()=>({on:false, color:'white', filter:'band', track:true, ratio:3, fc:1200, bw:2, mix:0.3});
+let noise = defaultNoise();
 let take   = { pitch: [], vol: [] };      // gespielte Linie
 const spec = {
   harm: Array.from({length:EQ.harm.n},(_,k)=>1/(k+1)),
@@ -363,7 +448,7 @@ function save(){
       p:pack(curves.pitch), v:pack(curves.vol), tp:pack(take.pitch), tv:pack(take.vol),
       sh:spec.harm.map(v=>+v.toFixed(4)), sc:spec.cluster.map(v=>+v.toFixed(4)), rc:raster.cluster,
       un:units.filter(complete).map(u=>({t0:u.t0,t1:u.t1,pa:u.pa,pb:u.pb,r:u.r,v0:u.v0,v1:u.v1})),
-      stk:{raster:STK.raster,hall:STK.hall,hallTime:STK.hallTime}, voice:S.voice, layer:S.layer, layers:packLayers()
+      stk:{raster:STK.raster,hall:STK.hall,hallTime:STK.hallTime}, voice:S.voice, layer:S.layer, layers:packLayers(), nz:noise
     }));
   }catch(e){}
 }
@@ -383,7 +468,7 @@ function load(){
     if(Array.isArray(d.sh)) spec.harm = Array.from({length:EQ.harm.n},(_,i)=> d.sh[i]!=null ? d.sh[i] : 0);
     if(d.rc) raster.cluster=d.rc;
     if(Array.isArray(d.sc)) spec.cluster = Array.from({length:EQ.cluster.n},(_,i)=> d.sc[i]!=null ? d.sc[i] : 0);
-    unpackLayers(d); if(d.voice) S.voice=d.voice;
+    unpackLayers(d); if(d.voice) S.voice=d.voice; if(d.nz) noise=Object.assign(defaultNoise(), d.nz);
   }catch(e){}
 }
 
@@ -402,7 +487,27 @@ class Synth{
     this.harm=this.osc(1); this.hG=this.amp(this.harm,this.out);
     this.cBus=ac.createGain(); this.cBus.gain.value=0; this.cBus.connect(this.out);
     this.cOsc=[]; this.last={}; this.type='sine';
+    // Rauschen: Puffer-Schleife → Filter → eigener Pegel → gemeinsamer Ausgang (folgt damit Lautstärke und Pausen der Stimme)
+    this.nf=ac.createBiquadFilter(); this.nG=ac.createGain(); this.nG.gain.value=0; this.nf.connect(this.nG); this.nG.connect(this.out);
+    this.nsrc=null; this.ncol=''; this.ncfg=null;
   }
+  setNoise(cfg){
+    this.ncfg=cfg;
+    if(cfg && cfg.on && cfg.color!==this.ncol){
+      if(this.nsrc){ try{ this.nsrc.stop(); this.nsrc.disconnect(); }catch(e){} }
+      const src=ac.createBufferSource(); src.buffer=noiseBuf(cfg.color); src.loop=true; src.connect(this.nf); src.start(0, Math.random()*3);
+      this.nsrc=src; this.ncol=cfg.color;
+    }
+    if(cfg){
+      const t=ac.currentTime;
+      if(cfg.filter==='none') this.nf.type='allpass';
+      else { this.nf.type = cfg.filter==='band'?'bandpass' : cfg.filter==='low'?'lowpass':'highpass';
+             this.nf.Q.setTargetAtTime(cfg.filter==='band' ? bwToQ(cfg.bw) : 0.707, t, 0.02); }
+    }
+    this.noiseFreq(this.last.f||440); this.last.mixKey=null;
+    this.set(this.type, this.last.f||440, this.last.g||0, false);
+  }
+  noiseFreq(f){ const c=this.ncfg; if(!c) return; const fc=clamp(c.track ? c.ratio*f : c.fc, 20, 18000); this.nf.frequency.setTargetAtTime(fc, ac.currentTime, 0.02); }
   osc(ratio){ const o=ac.createOscillator(); o.frequency.value=0; this.fs.connect(o.frequency); o.detune.value=1200*Math.log2(ratio); o.start(); return o; }
   amp(src,dst){ const g=ac.createGain(); g.gain.value=0; src.connect(g); g.connect(dst); return g; }
   // limit: nur die ersten „limit“ von null verschiedenen Teiltöne klingen (Fourier-Ansicht)
@@ -419,8 +524,12 @@ class Synth{
   }
   set(type,f,g,force){
     const t=ac.currentTime, L=this.last; this.type=type;
-    if(force||f!==L.f){ this.fs.offset.setTargetAtTime(f,t,0.012); L.f=f; }
-    const gs=type==='sine'?1:0, gh=type==='harm'?1:0, gc=type==='cluster'?1:0;
+    if(force||f!==L.f){ this.fs.offset.setTargetAtTime(f,t,0.012); L.f=f; if(this.ncfg && this.ncfg.track) this.noiseFreq(f); }
+    const nc=this.ncfg, non=!!(nc && nc.on);
+    const tg = non ? 1-nc.mix : 1;                                   // Tonanteil
+    const ng = non ? nc.mix * (nc.filter==='band' ? clamp(Math.sqrt(6/nc.bw),1,6) : 1) : 0;   // Rauschanteil (schmales Band wird angehoben)
+    if(force||ng!==L.ng){ this.nG.gain.setTargetAtTime(ng,t,0.03); L.ng=ng; }
+    const gs=type==='sine'?tg:0, gh=type==='harm'?tg:0, gc=type==='cluster'?tg:0;
     if(force||gs!==L.gs){ this.sG.gain.setTargetAtTime(gs,t,0.02); L.gs=gs; }
     if(force||gh!==L.gh){ this.hG.gain.setTargetAtTime(gh,t,0.02); L.gh=gh; }
     if(force||gc!==L.gc){ this.cBus.gain.setTargetAtTime(gc,t,0.02); L.gc=gc; }
@@ -428,6 +537,24 @@ class Synth{
   }
   mute(){ if(this.last.g!==0){ this.out.gain.setTargetAtTime(0,ac.currentTime,0.02); this.last.g=0; } }
 }
+// Rauschpuffer (4 s, Schleife): weiß = alle Frequenzen gleich stark, rosa = gleich viel Energie je Oktave, braun = noch dunkler
+const nbufs={};
+function noiseBuf(c){
+  if(nbufs[c]) return nbufs[c];
+  const sr=ac.sampleRate, n=sr*4, b=ac.createBuffer(1,n,sr), d=b.getChannelData(0);
+  if(c==='white'){ for(let i=0;i<n;i++) d[i]=Math.random()*2-1; }
+  else if(c==='pink'){ let b0=0,b1=0,b2=0,b3=0,b4=0,b5=0,b6=0;
+    for(let i=0;i<n;i++){ const w=Math.random()*2-1;
+      b0=0.99886*b0+w*0.0555179; b1=0.99332*b1+w*0.0750759; b2=0.96900*b2+w*0.1538520; b3=0.86650*b3+w*0.3104856;
+      b4=0.55000*b4+w*0.5329522; b5=-0.7616*b5-w*0.0168980; d[i]=b0+b1+b2+b3+b4+b5+b6+w*0.5362; b6=w*0.115926; } }
+  else { let l=0; for(let i=0;i<n;i++){ const w=Math.random()*2-1; l=(l+0.02*w)/1.02; d[i]=l; } }
+  let q=0; for(let i=0;i<n;i++) q+=d[i]*d[i]; const k=0.3/Math.sqrt(q/n); for(let i=0;i<n;i++) d[i]*=k;   // gleiche Lautheit (RMS)
+  // Übergang am Schleifenende weich machen
+  const fade=Math.floor(sr*0.05); for(let i=0;i<fade;i++){ const a=i/fade; d[n-fade+i]=d[n-fade+i]*(1-a)+d[i]*a; }
+  return nbufs[c]=b;
+}
+const bwToQ = bw => Math.sqrt(Math.pow(2,bw))/(Math.pow(2,bw)-1);
+function applyNoise(){ if(!ac) return; getSyn(0).setNoise(noise); if(S.osc && S.oscPoly) getSyn(1).setNoise(noise); }
 function limitParts(a,limit){ if(!(limit<Infinity)) return a; let n=0; return a.map(v=>{ if(v>0){ n++; return n<=limit?v:0; } return 0; }); }
 function getSyn(i){ if(!ac) return null; if(!syn[i]) syn[i]=new Synth(); return syn[i]; }
 function muteOthers(){ for(let i=1;i<syn.length;i++) if(syn[i]) syn[i].mute(); }
@@ -445,7 +572,7 @@ function initAudio(){
     master = ac.createGain(); master.gain.value = 1; master.connect(post);
     stBus = ac.createGain(); stBus.gain.value = 0; stBus.connect(post);
     prevG = ac.createGain(); prevG.gain.value = 0; prevG.connect(stBus);
-    getSyn(0); updateSpec();
+    getSyn(0); updateSpec(); applyNoise();
     ac.onstatechange = ()=>{ if(ac.state==='running') applyAudio(true); };
   }
   if(!audioUnlocked){ audioUnlocked=true; try{ const b=ac.createBuffer(1,1,22050), s=ac.createBufferSource(); s.buffer=b; s.connect(ac.destination); s.start(0); }catch(e){} }
@@ -479,7 +606,7 @@ function updateSpec(){
   if(!ac) return;
   const lim = fourierView() ? S.fourN : Infinity;
   getSyn(0).setSpectrum(spec.harm, spec.cluster, lim);
-  if(S.osc && S.oscPoly) getSyn(1).setSpectrum(spec.harm, spec.cluster, Infinity);
+  if(S.osc && S.oscPoly){ getSyn(1).setSpectrum(spec.harm, spec.cluster, Infinity); getSyn(1).setNoise(noise); }
 }
 let specQueued=false;
 function specChanged(){
@@ -850,14 +977,18 @@ function stroke(lane,a,b){
 const eq=document.getElementById('eq'), eqc=document.getElementById('eqc'), ectx=eqc.getContext('2d');
 let EW=0,EH=0; const ELBL=28, EPAD=6, ETOP=30;
 const eqMode = ()=> S.voice==='cluster' ? 'cluster' : 'harm';
+const presetSel={harm:null,cluster:null};
+function markPresets(){ const m=eqMode(); document.querySelectorAll('#eqtop button').forEach(b=>b.classList.toggle('sel', b.dataset.name===presetSel[m])); }
 function buildEqTop(){
   const m=eqMode(), cfg=EQ[m], top=document.getElementById('eqtop');
+  if(S.voice==='sine'){ top.innerHTML='<div class="t">SINUSTON · NUR DER GRUNDTON</div>'; return; }
   top.innerHTML = `<div class="t">${cfg.title}</div>`;
   for(const name in cfg.presets){
     const b=document.createElement('button'); b.textContent=name;
-    b.onclick=()=>{ initAudio(); spec[m]=spec[m].map((_,k)=>cfg.presets[name](k)); if(cfg.raster) raster[m]=cfg.raster[name]; drawEq(); specChanged(); saveSoon(); };
-    top.appendChild(b);
+    b.onclick=()=>{ initAudio(); spec[m]=spec[m].map((_,k)=>cfg.presets[name](k)); if(cfg.raster) raster[m]=cfg.raster[name]; presetSel[m]=name; markPresets(); drawEq(); specChanged(); saveSoon(); };
+    b.dataset.name=name; top.appendChild(b);
   }
+  markPresets();
 }
 function resizeEq(){
   if(!eq.classList.contains('show')) return;
@@ -870,7 +1001,8 @@ const rowOfY = y => Math.floor((EH-EPAD-y)/rowH());    // 0 = Grundton unten
 const lvlOfX = x => clamp((x-ELBL)/(EW-ELBL-8));
 function drawEq(){
   if(!EW) return;
-  const m=eqMode(), cfg=EQ[m], a=spec[m], N=eqN[m];
+  const m=eqMode(), cfg=EQ[m], N=eqN[m];
+  const a = S.voice==='sine' ? spec[m].map((_,k)=>k===0?1:0) : spec[m];     // Sinuston: nur der unterste Strich
   ectx.setTransform(dpr,0,0,dpr,0,0);
   ectx.fillStyle='#14171b'; ectx.fillRect(0,0,EW,EH);
   const rh=rowH(), bw=EW-ELBL-8, gap = rh>4 ? 1 : 0;
@@ -885,6 +1017,7 @@ function drawEq(){
     ectx.fillRect(ELBL,y+gap,a[i]*bw,rh-gap);
     if(i===0 || i%every===0){ ectx.fillStyle = i===0 ? cfg.col0 : audible ? '#8b94a1' : '#454b55'; ectx.fillText(i===0?'G':String(i), ELBL-4, y+rh/2); }
   }
+  drawNoiseCarpet(m,N,rh,bw,gap,f0);
   ectx.textAlign='left'; ectx.font='10px -apple-system,system-ui,sans-serif'; ectx.fillStyle='#7d8590';
   ectx.fillText(N+' '+cfg.unit+' sichtbar · 2 Finger zoomen', 6, 9);
   if(cfg.rasterName){ ectx.fillStyle='#c9a8ff'; ectx.fillText('Raster: '+cfg.rasterName[raster[m]], 6, 22); }
@@ -905,6 +1038,7 @@ eqc.addEventListener('pointerdown',e=>{
     if(eqTouches.size>2) return;
   }
   if(eqG) return;
+  if(S.voice==='sine') return;                          // Sinuston: Spektrum nur ansehen
   const r=eqc.getBoundingClientRect(); const x=e.clientX-r.left, y=e.clientY-r.top;
   eqSnap=spec[m].slice();
   eqG={id:e.pointerId,x,y,pen:e.pointerType==='pen'}; setEq(x,y,x,y);
@@ -934,6 +1068,7 @@ function setEq(x0,y0,x1,y1){   // alle überstrichenen Reihen setzen → Wischen
     const k = r1===r0 ? 1 : (r-r0)/(r1-r0);
     a[r]=lvlOfX(x0+(x1-x0)*k);
   }
+  if(presetSel[m]){ presetSel[m]=null; markPresets(); }          // von Hand verändert → keine Vorlage mehr
   drawEq(); specChanged();
 }
 
@@ -945,13 +1080,13 @@ tog($('toneBtn'),'tone');
 function showSpec(on){
   if(S.stock){ S.stkPanel=on; $('specBtn').classList.toggle('on',on); document.body.classList.toggle('stkp',on); requestAnimationFrame(resize); return; }
   S.spec=on; $('specBtn').classList.toggle('on',on);
-  eq.classList.toggle('show', on && S.voice!=='sine'); requestAnimationFrame(resize);
+  eq.classList.toggle('show', on); updNoisePanel(); requestAnimationFrame(resize);
 }
 function setVoice(v,noInit){
   if(!noInit) initAudio(); S.voice=v; S.fourN=1; updateSpec(); dirty=true;
   $('sineBtn').classList.toggle('on',v==='sine'); $('harmBtn').classList.toggle('on',v==='harm'); $('cluBtn').classList.toggle('on',v==='cluster');
-  $('specBtn').style.display = v==='sine' ? 'none' : '';
-  if(v!=='sine') buildEqTop();
+  $('specBtn').style.display = '';
+  buildEqTop();
   showSpec(S.spec);                                   // Spektrum nur, wenn der Spektrum-Knopf an ist
   layoutSubs();
   applyAudio();
@@ -970,7 +1105,14 @@ function openMenu(k,on){
   if(k==='play'){ S.time=on; if(!on) stop(); dirty=true; updateFaders(); }
   layoutSubs(); requestAnimationFrame(resize);
 }
-Object.keys(MENUS).forEach(k=> $('tab_'+k).onclick=()=>{ initAudio(); openMenu(k); });
+Object.keys(MENUS).forEach(k=> $('tab_'+k).onclick=()=>{
+  initAudio();
+  if(k==='spec' && (S.osc || S.stock)){                 // Special nochmals: Sondermodus beenden
+    if(S.osc) setOsc(false); if(S.stock) $('stockBtn').click();
+    openMenu('spec',false); return;
+  }
+  openMenu(k);
+});
 // Untermenüs der Reihe nach in die erste Zeile legen, in der noch genug Platz ist; sonst neue Zeile
 function layoutSubs(){
   const box=$('subs'); if(!box) return;
@@ -1377,7 +1519,7 @@ function serialize(){
     p:pack(curves.pitch), v:pack(curves.vol), tp:pack(take.pitch), tv:pack(take.vol),
     sh:spec.harm.map(v=>+v.toFixed(4)), sc:spec.cluster.map(v=>+v.toFixed(4)), rc:raster.cluster,
     un:units.filter(complete).map(u=>({t0:+u.t0.toFixed(4),t1:+u.t1.toFixed(4),pa:u.pa,pb:u.pb,r:u.r,v0:u.v0,v1:u.v1})),
-    stk:{raster:STK.raster,hall:STK.hall,hallTime:STK.hallTime}, layer:S.layer, layers:packLayers() };
+    stk:{raster:STK.raster,hall:STK.hall,hallTime:STK.hallTime}, layer:S.layer, layers:packLayers(), nz:noise };
 }
 function applyData(d){
   if(!d || d.app!=='Klangschrift') throw new Error('keine Klangschrift-Datei');
@@ -1389,6 +1531,7 @@ function applyData(d){
   units=(d.un||[]).map(u=>finishUnit(Object.assign({id:unitSeq++},u)));
   if(d.stk){ Object.assign(STK,d.stk); makeImpulse(); }
   unpackLayers(d);
+  noise=Object.assign(defaultNoise(), d.nz||{}); applyNoise(); updNoisePanel();
   S.name=d.name||'';
   if(!!d.stock!==S.stock){ $('stockBtn').click(); if(S.stock) setTimeout(()=>toast('Stockhausen-Partitur geöffnet'),2300); }
   if(!S.stock && d.voice && d.voice!==S.voice) setVoice(d.voice);
@@ -1513,18 +1656,19 @@ $('fileIn').onchange=e=>{
 // „Polyphon“ fixiert die aktive Stimme und schaltet zur nächsten (1→2→3→4→1). Fixierte Stimmen sind blass und
 // klingen beim Abspielen und Spielen mit. Jede Stimme hat ihren eigenen Klang (Sinus/Harm./Cluster) und ihr eigenes Spektrum.
 const VCOL=[['#ffb547','#4fd1c5'],['#ff8fa3','#ff8fa3'],['#8fd16a','#8fd16a'],['#6fb4ff','#6fb4ff']];
-function snapshotLayer(){ return {curves, take, voice:S.voice, specH:spec.harm.slice(), specC:spec.cluster.slice(), rasterC:raster.cluster}; }
+function snapshotLayer(){ return {curves, take, voice:S.voice, specH:spec.harm.slice(), specC:spec.cluster.slice(), rasterC:raster.cluster, noise:Object.assign({},noise)}; }
 function switchLayer(i){
   stop();
   layers[S.layer]=snapshotLayer();
   const L = layers[i] || {curves:{pitch:[],vol:[]}, take:{pitch:[],vol:[]}, voice:'sine', specH:spec.harm.slice(), specC:spec.cluster.slice(), rasterC:raster.cluster};
   layers[i]=null; S.layer=i;
   curves=L.curves; take=L.take; spec.harm=L.specH.slice(); spec.cluster=L.specC.slice(); raster.cluster=L.rasterC;
+  noise=Object.assign(defaultNoise(), L.noise||{}); applyNoise(); updNoisePanel();
   setVoice(L.voice); drawEq(); updPoly(); dirty=true; updateFaders(); saveSoon();
 }
 function prepareLayers(){
   if(!ac) return;
-  otherLayers().forEach(({L,i})=> getSyn(i+1).setSpectrum(L.specH, L.specC, Infinity));
+  otherLayers().forEach(({L,i})=>{ const s=getSyn(i+1); s.setSpectrum(L.specH, L.specC, Infinity); s.setNoise(Object.assign(defaultNoise(), L.noise||{})); });
 }
 function playLayers(){
   if(!ac) return;
@@ -1537,7 +1681,7 @@ function playLayers(){
 }
 function packLayers(){
   return layers.map((L,i)=> (i===S.layer || !L) ? null : {p:pack(L.curves.pitch), v:pack(L.curves.vol), tp:pack(L.take.pitch), tv:pack(L.take.vol),
-    voice:L.voice, sh:L.specH.map(v=>+v.toFixed(4)), sc:L.specC.map(v=>+v.toFixed(4)), rc:L.rasterC});
+    voice:L.voice, sh:L.specH.map(v=>+v.toFixed(4)), sc:L.specC.map(v=>+v.toFixed(4)), rc:L.rasterC, nz:L.noise||null});
 }
 function unpackLayers(d){
   layers.fill(null);
@@ -1546,7 +1690,7 @@ function unpackLayers(d){
     if(!x || i===S.layer) return;
     layers[i]={curves:{pitch:unpack(x.p),vol:unpack(x.v)}, take:{pitch:unpack(x.tp),vol:unpack(x.tv)}, voice:x.voice||'sine',
       specH:Array.from({length:EQ.harm.n},(_,k)=>x.sh&&x.sh[k]!=null?x.sh[k]:0),
-      specC:Array.from({length:EQ.cluster.n},(_,k)=>x.sc&&x.sc[k]!=null?x.sc[k]:0), rasterC:x.rc||1};
+      specC:Array.from({length:EQ.cluster.n},(_,k)=>x.sc&&x.sc[k]!=null?x.sc[k]:0), rasterC:x.rc||1, noise:Object.assign(defaultNoise(), x.nz||{})};
   });
 }
 function updPoly(){
@@ -1555,7 +1699,7 @@ function updPoly(){
   else { $('polyTxt').textContent=String(S.layer+1); b.classList.toggle('on', S.layer>0 || otherLayers().length>0); }
   const c = S.osc ? (S.oscPoly ? '#ff8fa3' : '') : VCOL[S.layer][0];
   b.style.borderColor = c || ''; b.style.color = c || ''; b.style.background = c ? c+'26' : '';
-  b.querySelector('.led').style.background = c || ''; b.querySelector('.led').style.boxShadow = c ? '0 0 8px '+c : '';
+
   layoutSubs();
 }
 $('polyBtn').onclick=()=>{
@@ -1610,7 +1754,7 @@ function syncModes(){
   b.classList.toggle('stock',!!S.stock); b.classList.toggle('osc',!!S.osc); b.classList.toggle('oscpoly',!!(S.osc&&S.oscPoly));
   $('stockBtn').classList.toggle('on',!!S.stock); $('oscBtn').classList.toggle('on',!!S.osc);
   $('sineBtn').classList.toggle('on',S.voice==='sine'); $('harmBtn').classList.toggle('on',S.voice==='harm'); $('cluBtn').classList.toggle('on',S.voice==='cluster');
-  $('specBadge').textContent = S.stock ? 'Stockhausen' : S.osc ? 'Schwingungen' : '';
+  $('tab_spec').classList.toggle('mode', !!(S.stock||S.osc));
   layoutSubs();
 }
 $('stkChip').onclick=()=>{ if(S.stock) $('stockBtn').click(); };
@@ -1704,16 +1848,23 @@ function drawOsc(){
   if(S.oscPoly){
     // drei Felder: Schwingung 1, Schwingung 2, Summe
     const ph=(H-RULER)/3, fn=waveFn(Infinity), f2=oscF2(), mr=waveCache.maxR;
+    // Alle drei Felder im selben Maßstab: Amplitude 1 = halbe Feldhöhe → die Summe kann die doppelte Amplitude (2A) erreichen
     const w1=t=>fn(f1*t)*S.vol, w2=t=>fn(f2*t)*S.vol2;
-    let g=panelBg(0,ph,'Schwingung 1 · '+fmtF(f1),'#ffb547'); plot(w1,g.c,g.hh,'#ffb547',1.8,f1*mr);
-    g=panelBg(ph,ph,'Schwingung 2 · '+fmtF(f2),'#ff8fa3'); plot(w2,g.c,g.hh,'#ff8fa3',1.8,f2*mr);
+    // Hilfslinien bei den tatsächlichen Amplituden: A₁, A₂ und in der Summe A₁+A₂ (bei gleichen Amplituden = 2A)
+    const guide=(g,amp,txt,col)=>{ ctx.fillStyle=col; ctx.globalAlpha=.55;
+      for(const sg of [1,-1]){ const y=Math.round(g.c-sg*amp*g.hh/2); for(let x=0;x<W;x+=8) ctx.fillRect(x,y,4,1); }
+      ctx.globalAlpha=1; ctx.font='600 10px -apple-system,system-ui,sans-serif'; ctx.textAlign='right'; ctx.fillText(txt,W-6,g.c-amp*g.hh/2-7); ctx.textAlign='left'; };
+    const eqA = Math.abs(S.vol-S.vol2)<0.005;
+    let g=panelBg(0,ph,'Schwingung 1 · '+fmtF(f1),'#ffb547'); guide(g,S.vol,'A₁','#ffb547'); plot(w1,g.c,g.hh/2,'#ffb547',1.8,f1*mr);
+    g=panelBg(ph,ph,'Schwingung 2 · '+fmtF(f2),'#ff8fa3'); guide(g,S.vol2,'A₂','#ff8fa3'); plot(w2,g.c,g.hh/2,'#ff8fa3',1.8,f2*mr);
     oscRulerY=2*ph; oscRuler(oscRulerY,step);
-    g=panelBg(2*ph+RULER,ph,'Summe',"#ffffff");
+    g=panelBg(2*ph+RULER,ph,'Summe = Schwingung 1 + Schwingung 2',"#ffffff");
+    guide(g,S.vol,'A₁','#ffb547'); guide(g,S.vol+S.vol2, eqA?'A₁+A₂ = 2A':'A₁+A₂','#6fb4ff');
     if(S.voice==='sine'){                                 // Hüllkurve der Schwebung
-      const env=t=>Math.sqrt(S.vol*S.vol+S.vol2*S.vol2+2*S.vol*S.vol2*Math.cos(2*Math.PI*(f2-f1)*t))/2;
-      ctx.setLineDash([5,5]); plot(env,g.c,g.hh,'#6fb4ff',1.2,Math.abs(f2-f1)+1); plot(t=>-env(t),g.c,g.hh,'#6fb4ff',1.2,Math.abs(f2-f1)+1); ctx.setLineDash([]);
+      const env=t=>Math.sqrt(S.vol*S.vol+S.vol2*S.vol2+2*S.vol*S.vol2*Math.cos(2*Math.PI*(f2-f1)*t));
+      ctx.setLineDash([5,5]); plot(env,g.c,g.hh/2,'#6fb4ff',1.2,Math.abs(f2-f1)+1); plot(t=>-env(t),g.c,g.hh/2,'#6fb4ff',1.2,Math.abs(f2-f1)+1); ctx.setLineDash([]);
     }
-    plot(t=>(w1(t)+w2(t))/2,g.c,g.hh,'#ffffff',1.8,Math.max(f1,f2)*mr);
+    plot(t=>w1(t)+w2(t),g.c,g.hh/2,'#ffffff',1.8,Math.max(f1,f2)*mr);
   } else if(S.voice==='sine'){
     // oben stehende Welle, Mitte Zeitleiste, unten Amplitude als waagerechte Linie
     const lh=laneH(); let g=panelBg(0,lh,'Schwingung · '+fmtF(f1),'#ffb547');
@@ -1798,6 +1949,101 @@ document.querySelectorAll('#tune .tr').forEach(row=>row.querySelectorAll('button
   applyAudio(); updateFaders(); dirty=true;
 }));
 
+
+// =================== Heller Modus ===================
+// Die Zeichenflächen verwenden feste dunkle Farben. Im hellen Modus wird jede Farbe beim Setzen
+// über eine Tabelle in ihr helles Gegenstück übersetzt (Transparenz-Endungen bleiben erhalten).
+const LIGHT = {
+  '#0d0f12':'#c3c7cc','#12151a':'#d3d6da','#0f1216':'#cdd0d4','#14171b':'#cfd2d6','#101215':'#bfc3c8','#16191e':'#c9ccd1',
+  '#2e3540':'#9aa1aa','#171b21':'#cbced2','#1c2128':'#c2c6cb','#1a1e24':'#c6c9ce','#262c35':'#b0b6bd','#2a2f37':'#b2b8bf',
+  '#4a525e':'#8a939e','#5b6573':'#6b7480','#6b7480':'#6b7480','#7d8590':'#5d6673','#8b94a1':'#5d6673','#454b55':'#a8afb8',
+  '#9aa4b2':'#6b7480','#c4d2e4':'#3b4654','#1b1f25':'#c5c9ce','#232830':'#b9bec5',
+  '#4a1218':'#d9b1b5','#7a2630':'#d98a93','#c0606a':'#b04452','#ffe8ea':'#5a1018','#e7aeb3':'#8a3a42','#8a3a42':'#d9a0a6',
+  '#ffb547':'#d98200','#4fd1c5':'#0f9488','#ff8fa3':'#d93d64','#8fd16a':'#3f9a1c','#6fb4ff':'#2b78d6','#c9a8ff':'#7d4fd6',
+  '#d9a04a':'#c07a10','#9a74e0':'#6a3fc4','#5a4a30':'#d8c9a8','#3f3554':'#d6cdea','#ffd56b':'#b88a00','#e98bff':'#a83fc9',
+  '#ffffff':'#1b1f25','#e8fffb':'#0b5f57'
+};
+function mapCol(v){
+  if(!S.light || typeof v!=='string' || v[0]!=='#') return v;
+  const base=v.slice(0,7).toLowerCase(), m=LIGHT[base];
+  return m ? m+v.slice(7) : v;
+}
+function themeCtx(c){
+  for(const p of ['fillStyle','strokeStyle']){
+    const d=Object.getOwnPropertyDescriptor(CanvasRenderingContext2D.prototype,p);
+    Object.defineProperty(c,p,{configurable:true, get(){ return d.get.call(c); }, set(v){ d.set.call(c, mapCol(v)); }});
+  }
+}
+themeCtx(ctx); themeCtx(ectx);
+function setTheme(light){
+  S.light=light; document.body.classList.toggle('light',light);
+  $('themeTxt').textContent = light ? 'Dunkel' : 'Hell';
+  const m=document.querySelector('meta[name="theme-color"]'); if(m) m.content = light ? '#c9cdd2' : '#101215';
+  try{ localStorage.setItem('klangschrift.theme', light?'light':'dark'); }catch(e){}
+  dirty=true; drawEq();
+}
+$('themeBtn').onclick=()=>setTheme(!S.light);
+try{ setTheme(localStorage.getItem('klangschrift.theme')==='light'); }catch(e){ setTheme(false); }
+
+
+// =================== Rauschen ===================
+const logMap=(v,a,b)=> a*Math.pow(b/a, v/1000), logInv=(x,a,b)=> 1000*Math.log(x/a)/Math.log(b/a);
+const fmtNum=(x,d)=> x.toFixed(d).replace('.',',');
+function updNoisePanel(){
+  const p=$('npanel'); if(!p) return;
+  const show = S.spec && noise.on && !S.stock;
+  p.style.display = show ? 'flex' : 'none';
+  $('noiseBtn').classList.toggle('on', noise.on);
+  p.querySelectorAll('#nColor button').forEach(b=>b.classList.toggle('sel', b.dataset.v===noise.color));
+  p.querySelectorAll('#nFilter button').forEach(b=>b.classList.toggle('sel', b.dataset.v===noise.filter));
+  $('nFreqBox').style.display = noise.filter==='none' ? 'none' : '';
+  $('nBwBox').style.display = noise.filter==='band' ? '' : 'none';
+  $('nTrack').classList.toggle('on', noise.track);
+  p.querySelectorAll('#nPre button').forEach(b=>b.classList.toggle('sel', b.dataset.p===noise.preset));
+  const f0=freqOf(S.pitch);
+  if(noise.track){ $('nFreq').value=logInv(noise.ratio,0.25,16); $('nFreqLbl').textContent='MITTE: '+fmtNum(noise.ratio,noise.ratio<10?2:1)+' × GRUNDTON (≈ '+Math.round(noise.ratio*f0)+' Hz)'; }
+  else { $('nFreq').value=logInv(noise.fc,40,16000); $('nFreqLbl').textContent='MITTE: '+Math.round(noise.fc)+' Hz'; }
+  $('nBw').value=noise.bw; $('nBwLbl').textContent='BANDBREITE: '+fmtNum(noise.bw,1)+' Oktaven';
+  $('nMix').value=Math.round(noise.mix*100); $('nMixLbl').textContent='MISCHUNG: TON '+Math.round((1-noise.mix)*100)+' % · RAUSCHEN '+Math.round(noise.mix*100)+' %';
+  requestAnimationFrame(resize);
+}
+function noiseChanged(){ applyNoise(); updNoisePanel(); drawEq(); saveSoon(); }
+$('noiseBtn').onclick=()=>{ initAudio(); noise.on=!noise.on; noiseChanged(); if(noise.on && !S.spec) toast('Einstellungen fürs Rauschen: „Spektrum“ einblenden'); };
+$('nColor').onclick=e=>{ const v=e.target.dataset&&e.target.dataset.v; if(v){ noise.color=v; noise.preset=null; noiseChanged(); } };
+$('nFilter').onclick=e=>{ const v=e.target.dataset&&e.target.dataset.v; if(v){ noise.filter=v; noise.preset=null; noiseChanged(); } };
+$('nTrack').onclick=()=>{ const f0=freqOf(S.pitch);
+  if(noise.track){ noise.fc=clamp(noise.ratio*f0,40,16000); noise.track=false; } else { noise.ratio=clamp(noise.fc/f0,0.25,16); noise.track=true; }
+  noiseChanged(); };
+$('nFreq').oninput=e=>{ const v=+e.target.value; if(noise.track) noise.ratio=logMap(v,0.25,16); else noise.fc=logMap(v,40,16000); noise.preset=null; noiseChanged(); };
+$('nBw').oninput=e=>{ noise.bw=+e.target.value; noise.preset=null; noiseChanged(); };
+$('nMix').oninput=e=>{ noise.mix=(+e.target.value)/100; noise.preset=null; noiseChanged(); };
+// Vorlagen: typische Rauschanteile, mit dem Grundton verknüpft
+const NPRE={
+  flute:{color:'white',filter:'band',track:true,ratio:2.5,bw:2.5,mix:0.15},
+  bow:  {color:'pink', filter:'band',track:true,ratio:6,  bw:3,  mix:0.1},
+  wind: {color:'pink', filter:'band',track:false,fc:700,  bw:1.2,mix:1},
+  surf: {color:'brown',filter:'none',track:false,fc:500,  bw:2,  mix:1}
+};
+$('nPre').onclick=e=>{ const p=e.target.dataset&&e.target.dataset.p; if(!p) return; initAudio(); Object.assign(noise,NPRE[p],{on:true}); noise.preset=p; noiseChanged(); };
+// Rauschteppich im Spektrum: so stark ist das Rauschen in der Gegend jedes Teiltons
+function drawNoiseCarpet(m,N,rh,bw,gap,f0){
+  if(!noise.on || S.stock) return;
+  const cfg=EQ[m], fc = noise.track ? noise.ratio*f0 : noise.fc, mags=[];
+  for(let i=0;i<=N;i++){
+    const fr=f0*cfg.ratio(i);
+    let a = noise.color==='white' ? 1 : noise.color==='pink' ? 1/Math.sqrt(fr/f0) : f0/fr;
+    if(noise.filter==='band'){ const sd=noise.bw/2.355, x=Math.log2(fr/fc)/sd; a*=Math.exp(-0.5*x*x); }
+    else if(noise.filter==='low') a*=1/Math.sqrt(1+Math.pow(fr/fc,4));
+    else if(noise.filter==='high') a*=1/Math.sqrt(1+Math.pow(fc/fr,4));
+    mags.push(a);
+  }
+  const mx=Math.max(...mags)||1, lvl=Math.max(noise.mix,0.12);
+  ectx.globalAlpha=.32; ectx.fillStyle='#6fb4ff';
+  mags.forEach((a,i)=>{ const y=EH-EPAD-(i+1)*rh; ectx.fillRect(ELBL,y+gap,bw*a/mx*lvl,rh-gap); });
+  ectx.globalAlpha=1; ectx.font='10px -apple-system,system-ui,sans-serif'; ectx.textAlign='right'; ectx.fillStyle='#6fb4ff';
+  ectx.fillText('▒ Rauschen', EW-8, 22); ectx.textAlign='left';
+}
+
 // ---------- Zeitschleife ----------
 let lastNow=performance.now();
 function frame(now){
@@ -1847,7 +2093,7 @@ function frame(now){
 
 addEventListener('pagehide',save); document.addEventListener('visibilitychange',()=>{ if(document.hidden) save(); });
 // Start: ohne Ton, mit Sinuston
-load(); S.tone=false; S.stock=false; S.osc=false; resize(); updPoly(); setVoice('sine',true); syncModes(); updateFaders(); requestAnimationFrame(frame);
+load(); S.tone=false; S.stock=false; S.osc=false; noise.on=false; resize(); updPoly(); setVoice('sine',true); syncModes(); updNoisePanel(); updateFaders(); requestAnimationFrame(frame);
 // Offline-Betrieb, wenn die App von einer Webadresse (z. B. GitHub Pages) geladen wurde
 try{ if('serviceWorker' in navigator && /^https?:$/.test(location.protocol) && /github\.io$|localhost/.test(location.hostname)) navigator.serviceWorker.register('sw.js').catch(()=>{}); }catch(e){}
 })();
